@@ -1,4 +1,4 @@
-package org.jinhostudy.swproject
+package org.jinhostudy.swproject.api
 
 import com.google.gson.annotations.SerializedName
 

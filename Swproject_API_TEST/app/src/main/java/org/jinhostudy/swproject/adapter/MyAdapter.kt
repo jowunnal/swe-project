@@ -1,14 +1,15 @@
-package org.jinhostudy.swproject
+package org.jinhostudy.swproject.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import org.jinhostudy.swproject.api.Item
 import org.jinhostudy.swproject.databinding.ItemLayoutBinding
 
 class MyAdapter : RecyclerView.Adapter<MyAdapter.ViewHolder>() {
     private var items=ArrayList<Item>()
     class ViewHolder(private val binding:ItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item:Item){
+        fun bind(item: Item){
             binding.textView.text="이름: "+item.dESCKOR
             binding.textView2.text="1회 제공량: "+item.sERVINGWT
             binding.textView3.text="열량: "+item.nUTRCONT1.toString()
