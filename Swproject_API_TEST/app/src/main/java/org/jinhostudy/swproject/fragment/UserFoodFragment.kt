@@ -2,68 +2,57 @@ package org.jinhostudy.swproject.fragment
 
 import android.graphics.Color
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.ViewCompat.animate
+import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.viewpager2.widget.ViewPager2
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.utils.ColorTemplate
-import org.jinhostudy.swproject.CalendarUtil
-import org.jinhostudy.swproject.R
-import org.jinhostudy.swproject.adapter.MainCalendarAdapter
-import org.jinhostudy.swproject.databinding.MainFragmentBinding
-import org.jinhostudy.swproject.listener.OnItemClickListener
-import java.util.*
+import org.jinhostudy.swproject.Meal
+import org.jinhostudy.swproject.MealPagerAdapter2
+import org.jinhostudy.swproject.databinding.UserfoodBinding
 
-class MainFragment : Fragment() {
-    var _binding:MainFragmentBinding ?= null
-    val binding get() = _binding!!
-    lateinit var navController:NavController
-    lateinit var adapter: MainCalendarAdapter
+class UserFoodFragment : Fragment() {
 
+
+    private lateinit var mealViewPager2: ViewPager2
+
+    private lateinit var calorieTextView: TextView
+
+    var _binding : UserfoodBinding ?=null
+    val binding get() = _binding !!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding= MainFragmentBinding.inflate(inflater,container,false)
+        _binding= UserfoodBinding.inflate(inflater,container,false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        navController= Navigation.findNavController(view)
-
-        adapter= MainCalendarAdapter()
-        binding.mainCalendar.adapter=adapter
-        binding.mainCalendar.layoutManager=GridLayoutManager(activity,7)
-        adapter.setItems(listOf("일요일","월요일","화요일","수요일","목요일","금요일","토요일"))
-        adapter.notifyDataSetChanged()
-
-        adapter.SetItemListener(object : OnItemClickListener{
-            override fun SetOnItemClickListener(v: View, pos: Int) {
-                navController.navigate(R.id.action_mainFragment_to_calendarView)
-            }
-        })
-        /*binding.button2.setOnClickListener{
-            binding.progressBar.progress= ((binding.editTextTextPersonName3.text.toString().toDouble())/(Math.pow((binding.editTextTextPersonName2.text.toString().toDouble()/100.0), 2.0))).toInt()
-        }*/
-
-
-
-
         binding.pieChart.setUsePercentValues(true)
+
+        mealViewPager2.adapter = MealPagerAdapter2(
+            listOf(
+                Meal("아침",
+                    "김치찌개"),
+                Meal("점심",
+                    "짜장면"),
+                Meal("저녁",
+                    "치킨")
+            )
+        )
+
+
         val entries = ArrayList<PieEntry>()
         entries.add(PieEntry(15f, "단백질"))
         entries.add(PieEntry(20f, "탄수화물"))
@@ -92,8 +81,6 @@ class MainFragment : Fragment() {
             animateY(1400, Easing.EaseInOutQuad)
             animate()
         }
-        binding.pieChart.setOnClickListener {
-            navController.navigate(R.id.action_mainFragment_to_userFoodFragment)
-        }
     }
+
 }

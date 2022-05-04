@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import org.jinhostudy.swproject.CalendarUtil
+import org.jinhostudy.swproject.utils.CalendarUtil
 import org.jinhostudy.swproject.adapter.CalendarAdapter
 import org.jinhostudy.swproject.databinding.CalendarBinding
 import java.text.SimpleDateFormat
@@ -34,20 +34,20 @@ class CalendarView :Fragment(){
         binding.recyclerView2.layoutManager=GridLayoutManager(activity,7)
         val cal=GregorianCalendar()
 
-        var nlist=CalendarUtil.makeday(cal,0)
+        var nlist= CalendarUtil.makeday(cal,0)
         binding.textView14.text=SimpleDateFormat("yyyy-MM-dd").format(CalendarUtil.times)
         adapter.setItems(nlist)
 
         binding.textView23.setOnClickListener {
             numb_flag-=1
-            nlist=CalendarUtil.makeday(cal,numb_flag)
+            nlist= CalendarUtil.makeday(cal,numb_flag)
             binding.textView14.text=SimpleDateFormat("yyyy-MM-dd").format(CalendarUtil.times)
             adapter.setItems(nlist)
             adapter.notifyDataSetChanged()
         }
         binding.textView24.setOnClickListener {
             numb_flag+=1
-            nlist=CalendarUtil.makeday(cal,numb_flag)
+            nlist= CalendarUtil.makeday(cal,numb_flag)
             binding.textView14.text=SimpleDateFormat("yyyy-MM-dd").format(CalendarUtil.times)
             adapter.setItems(nlist)
             adapter.notifyDataSetChanged()

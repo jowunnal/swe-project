@@ -2,22 +2,26 @@ package org.jinhostudy.swproject.adapter
 
 import android.graphics.Color
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import org.jinhostudy.swproject.CalendarUtil
+import org.jinhostudy.swproject.utils.CalendarUtil
 import org.jinhostudy.swproject.databinding.ItemCalendar7daysBinding
+import org.jinhostudy.swproject.listener.OnItemClickListener
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.properties.Delegates
 
-class MainCalendarAdapter : RecyclerView.Adapter<MainCalendarAdapter.ViewHolder>() {
+class MainCalendarAdapter : RecyclerView.Adapter<MainCalendarAdapter.ViewHolder>(),OnItemClickListener {
     val list=ArrayList<String>()
-
-    class ViewHolder(private val binding: ItemCalendar7daysBinding):RecyclerView.ViewHolder(binding.root) {
+    var mlistener:OnItemClickListener ?=null
+    inner class ViewHolder(private val binding: ItemCalendar7daysBinding):RecyclerView.ViewHolder(binding.root) {
         fun bind(data:String){
             binding.calendar7daysTv.text=data
             if(CalendarUtil.getToday(GregorianCalendar())==data)
                 binding.calendar7daysTv.setBackgroundColor(Color.BLUE)
+            binding.root.setOnClickListener {
+                SetOnItemClickListener(it,adapterPosition)
+            }
         }
     }
 
@@ -39,5 +43,11 @@ class MainCalendarAdapter : RecyclerView.Adapter<MainCalendarAdapter.ViewHolder>
     fun setItems(list:List<String>){
         this.list.clear()
         this.list.addAll(list)
+    }
+    fun SetItemListener(listener: OnItemClickListener){
+        this.mlistener=listener
+    }
+    override fun SetOnItemClickListener(v: View, pos: Int) {
+        mlistener?.SetOnItemClickListener(v,pos)
     }
 }
