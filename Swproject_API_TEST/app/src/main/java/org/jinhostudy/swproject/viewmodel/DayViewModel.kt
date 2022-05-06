@@ -1,4 +1,4 @@
-package org.jinhostudy.swproject
+package org.jinhostudy.swproject.viewmodel
 
 import androidx.lifecycle.ViewModel
 

@@ -2,23 +2,18 @@ package org.jinhostudy.swproject.fragment
 
 import android.graphics.Color
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.ViewCompat.animate
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import com.github.mikephil.charting.animation.Easing
-import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.utils.ColorTemplate
-import org.jinhostudy.swproject.CalendarUtil
 import org.jinhostudy.swproject.R
 import org.jinhostudy.swproject.adapter.MainCalendarAdapter
 import org.jinhostudy.swproject.databinding.MainFragmentBinding

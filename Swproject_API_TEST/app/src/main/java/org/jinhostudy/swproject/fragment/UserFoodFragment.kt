@@ -9,13 +9,12 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.github.mikephil.charting.animation.Easing
-import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.utils.ColorTemplate
-import org.jinhostudy.swproject.Meal
-import org.jinhostudy.swproject.MealPagerAdapter2
+import org.jinhostudy.swproject.data.Meal
+import org.jinhostudy.swproject.adapter.MealPagerAdapter2
 import org.jinhostudy.swproject.databinding.UserfoodBinding
 
 class UserFoodFragment : Fragment() {

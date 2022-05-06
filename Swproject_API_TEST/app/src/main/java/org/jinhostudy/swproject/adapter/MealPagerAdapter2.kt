@@ -1,11 +1,12 @@
-package org.jinhostudy.swproject
+package org.jinhostudy.swproject.adapter
 
 import android.view.LayoutInflater
-import android.view.TextureView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import org.jinhostudy.swproject.data.Meal
+import org.jinhostudy.swproject.R
 
 class MealPagerAdapter2(
    private val meals: List<Meal>

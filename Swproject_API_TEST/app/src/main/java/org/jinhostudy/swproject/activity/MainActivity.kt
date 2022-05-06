@@ -1,14 +1,10 @@
-package org.jinhostudy.swproject
+package org.jinhostudy.swproject.activity
 
-import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.inputmethod.InputMethodManager
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.coroutines.*
+import org.jinhostudy.swproject.R
 import org.jinhostudy.swproject.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

@@ -6,6 +6,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".fragment.MainFragment">
 
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="373dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/ic_baseline_arrow_forward_24"
+        app:layout_constraintBottom_toTopOf="@+id/main_calendar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/main_calendar"
         android:layout_width="match_parent"
@@ -14,7 +28,7 @@
         app:layout_constraintBottom_toTopOf="@+id/textView30"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/button2">
 
     </androidx.recyclerview.widget.RecyclerView>
 

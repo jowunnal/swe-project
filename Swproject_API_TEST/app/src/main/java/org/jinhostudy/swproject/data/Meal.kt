@@ -1,4 +1,4 @@
-package org.jinhostudy.swproject
+package org.jinhostudy.swproject.data
 
 data class Meal(
     val bld : String,
