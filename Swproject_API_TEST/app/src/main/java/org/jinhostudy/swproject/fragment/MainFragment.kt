@@ -90,5 +90,9 @@ class MainFragment : Fragment() {
         binding.pieChart.setOnClickListener {
             navController.navigate(R.id.action_mainFragment_to_userFoodFragment)
         }
+
+        binding.button2.setOnClickListener {
+            navController.navigate(R.id.action_mainFragment_to_calendarView)
+        }
     }
 }

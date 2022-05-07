@@ -4,4 +4,4 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class WaterInfo(var user_input_mount : Int,var user_today_mount:Int,var user_recom_mount:Int,@PrimaryKey var water_id:Int)
+data class WaterInfo(val user_input_mount : Int,val user_today_mount:Int,val user_recom_mount:Int,@PrimaryKey val water_id:Int)
