@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".api.ApiTest">
+    tools:context=".api.ApiFragment">
     <EditText
         android:id="@+id/editTextTextPersonName"
         android:layout_width="wrap_content"

@@ -16,7 +16,8 @@ import kotlinx.coroutines.launch
 import org.jinhostudy.swproject.adapter.MyAdapter
 import org.jinhostudy.swproject.databinding.ApiTestBinding
 
-class ApiTest : Fragment() {
+
+class ApiFragment : Fragment() {
     var _binding : ApiTestBinding ?= null
     val binding get() = _binding!!
     private val myAdapter by lazy { MyAdapter() }

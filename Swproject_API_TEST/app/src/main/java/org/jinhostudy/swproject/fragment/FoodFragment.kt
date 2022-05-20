@@ -17,7 +17,7 @@ import org.jinhostudy.swproject.data.Meal
 import org.jinhostudy.swproject.adapter.MealPagerAdapter2
 import org.jinhostudy.swproject.databinding.UserfoodBinding
 
-class UserFoodFragment : Fragment() {
+class FoodFragment : Fragment() {
 
 
     private lateinit var mealViewPager2: ViewPager2

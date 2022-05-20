@@ -16,7 +16,6 @@ object MyRetrofit {
             .build()
     }
 
-
     private val retrofit: Retrofit by lazy { // retrofit 객체 빌더로 생성
         Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())

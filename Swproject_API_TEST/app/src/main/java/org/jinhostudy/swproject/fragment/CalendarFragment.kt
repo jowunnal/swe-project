@@ -8,11 +8,12 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import org.jinhostudy.swproject.utils.CalendarUtil
 import org.jinhostudy.swproject.adapter.CalendarAdapter
+import org.jinhostudy.swproject.database.dao.PlannerDao
 import org.jinhostudy.swproject.databinding.CalendarBinding
 import java.text.SimpleDateFormat
 import java.util.*
 
-class CalendarView :Fragment(){
+class CalendarFragment :Fragment(){
     var _binding : CalendarBinding ?= null
     val binding get() = _binding !!
     lateinit var adapter: CalendarAdapter
@@ -33,6 +34,8 @@ class CalendarView :Fragment(){
         binding.recyclerView2.adapter=adapter
         binding.recyclerView2.layoutManager=GridLayoutManager(activity,7)
         val cal=GregorianCalendar()
+        val plannerDao:PlannerDao
+
 
         var nlist= CalendarUtil.makeday(cal,0)
         binding.textView14.text=SimpleDateFormat("yyyy-MM-dd").format(CalendarUtil.times)

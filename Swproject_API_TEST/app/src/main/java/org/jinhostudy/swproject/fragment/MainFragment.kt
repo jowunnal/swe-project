@@ -54,8 +54,9 @@ class MainFragment : Fragment() {
         /*binding.button2.setOnClickListener{
             binding.progressBar.progress= ((binding.editTextTextPersonName3.text.toString().toDouble())/(Math.pow((binding.editTextTextPersonName2.text.toString().toDouble()/100.0), 2.0))).toInt()
         }*/
-
-
+        binding.linearLayout.setOnClickListener {
+            navController.navigate(R.id.action_mainFragment_to_apiTest)
+        }
 
 
         binding.pieChart.setUsePercentValues(true)

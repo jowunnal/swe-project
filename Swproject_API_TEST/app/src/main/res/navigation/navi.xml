@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/calendarView"
-        android:name="org.jinhostudy.swproject.fragment.CalendarView"
+        android:name="org.jinhostudy.swproject.fragment.CalendarFragment"
         android:label="calendar"
         tools:layout="@layout/calendar" />
     <fragment
         android:id="@+id/apiTest"
-        android:name="org.jinhostudy.swproject.api.ApiTest"
+        android:name="org.jinhostudy.swproject.api.ApiFragment"
         android:label="api_test"
         tools:layout="@layout/api_test" />
 
@@ -33,7 +33,7 @@
     </fragment>
     <fragment
         android:id="@+id/userFoodFragment"
-        android:name="org.jinhostudy.swproject.fragment.UserFoodFragment"
+        android:name="org.jinhostudy.swproject.fragment.FoodFragment"
         android:label="userfood"
         tools:layout="@layout/userfood" />
 </navigation>
