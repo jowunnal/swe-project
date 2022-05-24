@@ -30,10 +30,18 @@
         <action
             android:id="@+id/action_mainFragment_to_userFoodFragment"
             app:destination="@id/userFoodFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_waterFragment"
+            app:destination="@id/waterFragment" />
     </fragment>
     <fragment
         android:id="@+id/userFoodFragment"
         android:name="org.jinhostudy.swproject.fragment.FoodFragment"
         android:label="userfood"
         tools:layout="@layout/userfood" />
+    <fragment
+        android:id="@+id/waterFragment"
+        android:name="org.jinhostudy.swproject.fragment.WaterFragment"
+        android:label="water_fragment"
+        tools:layout="@layout/water_fragment" />
 </navigation>

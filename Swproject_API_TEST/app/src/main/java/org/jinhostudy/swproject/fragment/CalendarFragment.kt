@@ -34,7 +34,6 @@ class CalendarFragment :Fragment(){
         binding.recyclerView2.adapter=adapter
         binding.recyclerView2.layoutManager=GridLayoutManager(activity,7)
         val cal=GregorianCalendar()
-        val plannerDao:PlannerDao
 
 
         var nlist= CalendarUtil.makeday(cal,0)

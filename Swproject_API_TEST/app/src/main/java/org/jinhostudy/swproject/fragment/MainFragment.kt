@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
+import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import com.github.mikephil.charting.animation.Easing
@@ -18,6 +20,8 @@ import org.jinhostudy.swproject.R
 import org.jinhostudy.swproject.adapter.MainCalendarAdapter
 import org.jinhostudy.swproject.databinding.MainFragmentBinding
 import org.jinhostudy.swproject.listener.OnItemClickListener
+import org.jinhostudy.swproject.viewmodel.WaterViewModel
+import org.jinhostudy.swproject.viewmodel.WaterViewModelFactory
 import java.util.*
 
 class MainFragment : Fragment() {
@@ -25,6 +29,7 @@ class MainFragment : Fragment() {
     val binding get() = _binding!!
     lateinit var navController:NavController
     lateinit var adapter: MainCalendarAdapter
+    val waterViewModel:WaterViewModel by activityViewModels{ WaterViewModelFactory(requireActivity().application) }
 
 
     override fun onCreateView(
@@ -57,6 +62,16 @@ class MainFragment : Fragment() {
         binding.linearLayout.setOnClickListener {
             navController.navigate(R.id.action_mainFragment_to_apiTest)
         }
+        binding.progressBarWater.setOnClickListener {
+            navController.navigate(R.id.action_mainFragment_to_waterFragment)
+        }
+
+        waterViewModel.getDrinkGoal().observe(viewLifecycleOwner, Observer {
+            binding.progressBarWater.max=it
+        })
+        waterViewModel.getDrink().observe(viewLifecycleOwner, Observer {
+            binding.progressBarWater.progress=it
+        })
 
 
         binding.pieChart.setUsePercentValues(true)
