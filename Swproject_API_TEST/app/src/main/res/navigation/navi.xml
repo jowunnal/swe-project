@@ -9,7 +9,11 @@
         android:id="@+id/calendarView"
         android:name="org.jinhostudy.swproject.fragment.CalendarFragment"
         android:label="calendar"
-        tools:layout="@layout/calendar" />
+        tools:layout="@layout/calendar" >
+        <action
+            android:id="@+id/action_calendarView_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
     <fragment
         android:id="@+id/apiTest"
         android:name="org.jinhostudy.swproject.api.ApiFragment"

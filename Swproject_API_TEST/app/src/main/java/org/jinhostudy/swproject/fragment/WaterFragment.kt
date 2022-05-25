@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import org.jinhostudy.swproject.databinding.WaterFragmentBinding
+import org.jinhostudy.swproject.viewmodel.CalendarViewModel
+import org.jinhostudy.swproject.viewmodel.CalendarViewModelFactory
 import org.jinhostudy.swproject.viewmodel.WaterViewModel
 import org.jinhostudy.swproject.viewmodel.WaterViewModelFactory
 
@@ -15,6 +17,7 @@ class WaterFragment : Fragment() {
     var _binding:WaterFragmentBinding ?= null
     val binding get() = _binding!!
     val waterViewModel:WaterViewModel by activityViewModels{WaterViewModelFactory(requireActivity().application)}
+    val calendarViewModel:CalendarViewModel by activityViewModels{ CalendarViewModelFactory(requireActivity().application) }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -28,20 +31,20 @@ class WaterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        waterViewModel.getDrinkGoal().observe(viewLifecycleOwner, Observer {
+        waterViewModel.getDrinkGoal(calendarViewModel.getDays()).observe(viewLifecycleOwner, Observer {
             binding.progressBarWaterToday.max=it
             binding.tvWaterGoal.text= it.toString()
         })
-        waterViewModel.getDrink().observe(viewLifecycleOwner, Observer {
+        waterViewModel.getDrink(calendarViewModel.getDays()).observe(viewLifecycleOwner, Observer {
             binding.progressBarWaterToday.progress=it
             binding.tvWaterPresent.text=it.toString()
         })
         binding.tvWaterHeader.text="오늘 물 섭취량"
         binding.buttonWaterAdd.setOnClickListener {
-            waterViewModel.plusDrink()
+            waterViewModel.plusDrink(calendarViewModel.getDays())
         }
         binding.buttonWaterDec.setOnClickListener {
-            waterViewModel.minusDrink()
+            waterViewModel.minusDrink(calendarViewModel.getDays())
         }
 
 
@@ -50,19 +53,19 @@ class WaterFragment : Fragment() {
                 true -> {
                     binding.tvWaterHeader.text="오늘 물 목표량"
                     binding.buttonWaterAdd.setOnClickListener {
-                        waterViewModel.plusDrinkGoal()
+                        waterViewModel.plusDrinkGoal(calendarViewModel.getDays())
                     }
                     binding.buttonWaterDec.setOnClickListener {
-                        waterViewModel.minusDrinkGoal()
+                        waterViewModel.minusDrinkGoal(calendarViewModel.getDays())
                     }
                 }
                 false->{
                     binding.tvWaterHeader.text="오늘 물 섭취량"
                     binding.buttonWaterAdd.setOnClickListener {
-                        waterViewModel.plusDrink()
+                        waterViewModel.plusDrink(calendarViewModel.getDays())
                     }
                     binding.buttonWaterDec.setOnClickListener {
-                        waterViewModel.minusDrink()
+                        waterViewModel.minusDrink(calendarViewModel.getDays())
                     }
                 }
             }

@@ -20,6 +20,8 @@ import org.jinhostudy.swproject.R
 import org.jinhostudy.swproject.adapter.MainCalendarAdapter
 import org.jinhostudy.swproject.databinding.MainFragmentBinding
 import org.jinhostudy.swproject.listener.OnItemClickListener
+import org.jinhostudy.swproject.viewmodel.CalendarViewModel
+import org.jinhostudy.swproject.viewmodel.CalendarViewModelFactory
 import org.jinhostudy.swproject.viewmodel.WaterViewModel
 import org.jinhostudy.swproject.viewmodel.WaterViewModelFactory
 import java.util.*
@@ -30,7 +32,7 @@ class MainFragment : Fragment() {
     lateinit var navController:NavController
     lateinit var adapter: MainCalendarAdapter
     val waterViewModel:WaterViewModel by activityViewModels{ WaterViewModelFactory(requireActivity().application) }
-
+    val calendarViewModel:CalendarViewModel by activityViewModels{CalendarViewModelFactory(requireActivity().application)}
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,7 +53,7 @@ class MainFragment : Fragment() {
         adapter.setItems(listOf("일요일","월요일","화요일","수요일","목요일","금요일","토요일"))
         adapter.notifyDataSetChanged()
 
-        adapter.SetItemListener(object : OnItemClickListener{
+        adapter.SetItemClickListener(object : OnItemClickListener{
             override fun SetOnItemClickListener(v: View, pos: Int) {
                 navController.navigate(R.id.action_mainFragment_to_calendarView)
             }
@@ -66,10 +68,10 @@ class MainFragment : Fragment() {
             navController.navigate(R.id.action_mainFragment_to_waterFragment)
         }
 
-        waterViewModel.getDrinkGoal().observe(viewLifecycleOwner, Observer {
+        waterViewModel.getDrinkGoal(calendarViewModel.getDays()).observe(viewLifecycleOwner, Observer {
             binding.progressBarWater.max=it
         })
-        waterViewModel.getDrink().observe(viewLifecycleOwner, Observer {
+        waterViewModel.getDrink(calendarViewModel.getDays()).observe(viewLifecycleOwner, Observer {
             binding.progressBarWater.progress=it
         })
 

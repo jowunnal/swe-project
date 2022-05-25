@@ -12,13 +12,13 @@ class WaterViewModel(application: Application) : ViewModel() {
     private val dao=db.plannerDao()
     var checker=false
 
-    fun plusDrink()=viewModelScope.launch { dao.plusDrink() }
-    fun minusDrink()=viewModelScope.launch { dao.minusDrink() }
-    fun plusDrinkGoal()=viewModelScope.launch { dao.plusDrinkGoal() }
-    fun minusDrinkGoal()=viewModelScope.launch { dao.minusDrinkGoal() }
-    fun getDrink()=dao.getDrink()
-    fun getDrinkGoal()=dao.getDrinkGoal()
-    fun insertDays()=viewModelScope.launch { dao.insertDays() }
+    fun plusDrink(day:String)=viewModelScope.launch { dao.plusDrink(day) }
+    fun minusDrink(day:String)=viewModelScope.launch { dao.minusDrink(day) }
+    fun plusDrinkGoal(day:String)=viewModelScope.launch { dao.plusDrinkGoal(day) }
+    fun minusDrinkGoal(day:String)=viewModelScope.launch { dao.minusDrinkGoal(day) }
+    fun getDrink(day:String)=dao.getDrink(day)
+    fun getDrinkGoal(day:String)=dao.getDrinkGoal(day)
+
 }
 
 class WaterViewModelFactory(private val application: Application) : ViewModelProvider.Factory{
@@ -29,5 +29,4 @@ class WaterViewModelFactory(private val application: Application) : ViewModelPro
         }
         throw IllegalArgumentException("unknown Viewmodel class")
     }
-
 }

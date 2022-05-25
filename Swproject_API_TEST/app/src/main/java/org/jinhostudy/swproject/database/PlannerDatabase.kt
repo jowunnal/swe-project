@@ -19,7 +19,7 @@ abstract class PlannerDatabase : RoomDatabase() {
         private var DatabaseInstance:PlannerDatabase ?=null
         fun getInstance(context: Context): PlannerDatabase {
             return DatabaseInstance?: synchronized(PlannerDatabase::class){
-                val instance=Room.databaseBuilder(context.applicationContext,PlannerDatabase::class.java,"Planner_Database").createFromAsset("database/Food_Planner.db").fallbackToDestructiveMigration().build()
+                val instance=Room.databaseBuilder(context.applicationContext,PlannerDatabase::class.java,"Planner_Database").createFromAsset("database/Food_Planner.db").build()
                 DatabaseInstance=instance
                 instance
             }

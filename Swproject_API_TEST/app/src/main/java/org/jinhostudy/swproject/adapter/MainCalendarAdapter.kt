@@ -44,7 +44,7 @@ class MainCalendarAdapter : RecyclerView.Adapter<MainCalendarAdapter.ViewHolder>
         this.list.clear()
         this.list.addAll(list)
     }
-    fun SetItemListener(listener: OnItemClickListener){
+    fun SetItemClickListener(listener: OnItemClickListener){
         this.mlistener=listener
     }
     override fun SetOnItemClickListener(v: View, pos: Int) {
