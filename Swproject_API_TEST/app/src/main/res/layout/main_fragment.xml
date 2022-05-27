@@ -7,7 +7,7 @@
     tools:context=".fragment.MainFragment">
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/button_NavigateToCalendar"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginStart="373dp"
@@ -15,20 +15,20 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/ic_baseline_arrow_forward_24"
-        app:layout_constraintBottom_toTopOf="@+id/main_calendar"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView_MainCalendar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/main_calendar"
+        android:id="@+id/recyclerView_MainCalendar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="3dp"
         app:layout_constraintBottom_toTopOf="@+id/textView30"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button2">
+        app:layout_constraintTop_toBottomOf="@+id/button_NavigateToCalendar">
 
     </androidx.recyclerview.widget.RecyclerView>
 
@@ -41,7 +41,7 @@
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_calendar" />
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView_MainCalendar" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -50,10 +50,10 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="1dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/progressBar"
+        app:layout_constraintBottom_toTopOf="@+id/progressBar_Bmi"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_calendar">
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView_MainCalendar">
 
         <TextView
             android:id="@+id/textView25"
@@ -92,7 +92,7 @@
     </LinearLayout>
 
     <ProgressBar
-        android:id="@+id/progressBar"
+        android:id="@+id/progressBar_Bmi"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -150,7 +150,7 @@
         android:text="점심 식단명"
         app:layout_constraintEnd_toStartOf="@+id/textView34"
         app:layout_constraintStart_toEndOf="@+id/textView33"
-        app:layout_constraintTop_toBottomOf="@+id/progressBar" />
+        app:layout_constraintTop_toBottomOf="@+id/progressBar_Bmi" />
 
     <TextView
         android:id="@+id/textView33"
@@ -161,7 +161,7 @@
         android:text="아침 식단명"
         app:layout_constraintEnd_toStartOf="@+id/textView32"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progressBar" />
+        app:layout_constraintTop_toBottomOf="@+id/progressBar_Bmi" />
 
     <TextView
         android:id="@+id/textView34"
@@ -172,5 +172,5 @@
         android:text="저녁 식단명"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView32"
-        app:layout_constraintTop_toBottomOf="@+id/progressBar" />
+        app:layout_constraintTop_toBottomOf="@+id/progressBar_Bmi" />
 </androidx.constraintlayout.widget.ConstraintLayout>

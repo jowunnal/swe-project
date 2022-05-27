@@ -10,7 +10,7 @@ import org.jinhostudy.swproject.database.entity.FoodInfo
 import org.jinhostudy.swproject.database.entity.UserInfo
 import org.jinhostudy.swproject.database.entity.WaterInfo
 
-@Database(entities = [FoodInfo::class, UserInfo::class, WaterInfo::class], version = 2, exportSchema = false)
+@Database(entities = [FoodInfo::class, UserInfo::class, WaterInfo::class], version = 3, exportSchema = false)
 abstract class PlannerDatabase : RoomDatabase() {
     abstract fun plannerDao(): PlannerDao
 

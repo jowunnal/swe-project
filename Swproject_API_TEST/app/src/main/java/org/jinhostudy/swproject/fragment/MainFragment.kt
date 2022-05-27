@@ -2,6 +2,7 @@ package org.jinhostudy.swproject.fragment
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,10 +21,12 @@ import org.jinhostudy.swproject.R
 import org.jinhostudy.swproject.adapter.MainCalendarAdapter
 import org.jinhostudy.swproject.databinding.MainFragmentBinding
 import org.jinhostudy.swproject.listener.OnItemClickListener
+import org.jinhostudy.swproject.utils.CalendarUtil
 import org.jinhostudy.swproject.viewmodel.CalendarViewModel
 import org.jinhostudy.swproject.viewmodel.CalendarViewModelFactory
 import org.jinhostudy.swproject.viewmodel.WaterViewModel
 import org.jinhostudy.swproject.viewmodel.WaterViewModelFactory
+import java.text.SimpleDateFormat
 import java.util.*
 
 class MainFragment : Fragment() {
@@ -48,21 +51,28 @@ class MainFragment : Fragment() {
         navController= Navigation.findNavController(view)
 
         adapter= MainCalendarAdapter()
-        binding.mainCalendar.adapter=adapter
-        binding.mainCalendar.layoutManager=GridLayoutManager(activity,7)
-        adapter.setItems(listOf("일요일","월요일","화요일","수요일","목요일","금요일","토요일"))
+        binding.recyclerViewMainCalendar.adapter=adapter
+        binding.recyclerViewMainCalendar.layoutManager=GridLayoutManager(activity,7)
+        val cal=Calendar.getInstance()
+        Log.d("test",calendarViewModel.getDays())
+        val date=calendarViewModel.getDays().split("-")
+        cal.set(date[0].toInt(),date[1].split('0')[1].toInt()-1,date[2].toInt())
+        Log.d("Test",SimpleDateFormat("yyyy-MM-dd").format(Date(cal.timeInMillis)))
+        val day=CalendarUtil.getToday(cal)
+        adapter.setItems(day)
+        Log.d("Test",day.toString())
         adapter.notifyDataSetChanged()
 
         adapter.SetItemClickListener(object : OnItemClickListener{
             override fun SetOnItemClickListener(v: View, pos: Int) {
-                navController.navigate(R.id.action_mainFragment_to_calendarView)
+
             }
         })
         /*binding.button2.setOnClickListener{
             binding.progressBar.progress= ((binding.editTextTextPersonName3.text.toString().toDouble())/(Math.pow((binding.editTextTextPersonName2.text.toString().toDouble()/100.0), 2.0))).toInt()
         }*/
-        binding.linearLayout.setOnClickListener {
-            navController.navigate(R.id.action_mainFragment_to_apiTest)
+        binding.buttonNavigateToCalendar.setOnClickListener {
+            navController.navigate(R.id.action_mainFragment_to_calendarView)
         }
         binding.progressBarWater.setOnClickListener {
             navController.navigate(R.id.action_mainFragment_to_waterFragment)
@@ -109,8 +119,5 @@ class MainFragment : Fragment() {
             navController.navigate(R.id.action_mainFragment_to_userFoodFragment)
         }
 
-        binding.button2.setOnClickListener {
-            navController.navigate(R.id.action_mainFragment_to_calendarView)
-        }
     }
 }
