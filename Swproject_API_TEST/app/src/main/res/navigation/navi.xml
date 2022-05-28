@@ -26,9 +26,6 @@
         android:label="main_fragment"
         tools:layout="@layout/main_fragment" >
         <action
-            android:id="@+id/action_mainFragment_to_apiTest"
-            app:destination="@id/apiTest" />
-        <action
             android:id="@+id/action_mainFragment_to_calendarView"
             app:destination="@id/calendarView" />
         <action
@@ -42,7 +39,11 @@
         android:id="@+id/userFoodFragment"
         android:name="org.jinhostudy.swproject.fragment.FoodFragment"
         android:label="userfood"
-        tools:layout="@layout/userfood" />
+        tools:layout="@layout/userfood" >
+        <action
+            android:id="@+id/action_userFoodFragment_to_apiTest"
+            app:destination="@id/apiTest" />
+    </fragment>
     <fragment
         android:id="@+id/waterFragment"
         android:name="org.jinhostudy.swproject.fragment.WaterFragment"

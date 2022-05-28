@@ -19,6 +19,7 @@ import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.utils.ColorTemplate
 import org.jinhostudy.swproject.R
 import org.jinhostudy.swproject.adapter.MainCalendarAdapter
+import org.jinhostudy.swproject.database.entity.WaterInfo
 import org.jinhostudy.swproject.databinding.MainFragmentBinding
 import org.jinhostudy.swproject.listener.OnItemClickListener
 import org.jinhostudy.swproject.utils.CalendarUtil
@@ -28,6 +29,7 @@ import org.jinhostudy.swproject.viewmodel.WaterViewModel
 import org.jinhostudy.swproject.viewmodel.WaterViewModelFactory
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 class MainFragment : Fragment() {
     var _binding:MainFragmentBinding ?= null
@@ -53,19 +55,35 @@ class MainFragment : Fragment() {
         adapter= MainCalendarAdapter()
         binding.recyclerViewMainCalendar.adapter=adapter
         binding.recyclerViewMainCalendar.layoutManager=GridLayoutManager(activity,7)
-        val cal=Calendar.getInstance()
-        Log.d("test",calendarViewModel.getDays())
-        val date=calendarViewModel.getDays().split("-")
-        cal.set(date[0].toInt(),date[1].split('0')[1].toInt()-1,date[2].toInt())
-        Log.d("Test",SimpleDateFormat("yyyy-MM-dd").format(Date(cal.timeInMillis)))
-        val day=CalendarUtil.getToday(cal)
-        adapter.setItems(day)
-        Log.d("Test",day.toString())
-        adapter.notifyDataSetChanged()
+        /*var k=1
+        var waterList=ArrayList<WaterInfo>()
+        for(i in 0..20){
+            val list=CalendarUtil.makeday(GregorianCalendar(),i-10)
+            for(j in list){
+                val waterInfo=WaterInfo(0,0,2000,k,SimpleDateFormat("yyyy-MM-").format(CalendarUtil.times)+j.toString())
+                waterList.add(waterInfo)
+                Log.d("Test",waterInfo.toString())
+            }
+        }
+        calendarViewModel.setCalendar(waterList)*/
+
+        calendarViewModel.day.observe(viewLifecycleOwner, Observer { s ->
+            var date=s.split("-")
+            val cal=Calendar.getInstance()
+            cal.set(date[0].toInt(),date[1].toInt()-1,date[2].toInt())
+            val day=CalendarUtil.getToday(cal)
+            calendarViewModel.indicateToCalendar(day.first().keys.first(),day.last().keys.first()).observe(viewLifecycleOwner,
+                Observer {
+                    adapter.setWaterInfo(it)
+                })
+            adapter.setItems(day)
+            Log.d("Test","items: "+day)
+            adapter.notifyDataSetChanged()
+        })
 
         adapter.SetItemClickListener(object : OnItemClickListener{
             override fun SetOnItemClickListener(v: View, pos: Int) {
-
+                calendarViewModel.changeDays(adapter.getItem(pos))
             }
         })
         /*binding.button2.setOnClickListener{
@@ -78,12 +96,18 @@ class MainFragment : Fragment() {
             navController.navigate(R.id.action_mainFragment_to_waterFragment)
         }
 
-        waterViewModel.getDrinkGoal(calendarViewModel.getDays()).observe(viewLifecycleOwner, Observer {
-            binding.progressBarWater.max=it
+        calendarViewModel.day.observe(viewLifecycleOwner, Observer { s ->
+            waterViewModel.getDrinkGoal(s).observe(viewLifecycleOwner, Observer {
+                binding.progressBarWater.max=it
+            })
+            waterViewModel.getDrink(s).observe(viewLifecycleOwner, Observer {
+                binding.progressBarWater.progress=it
+            })
         })
-        waterViewModel.getDrink(calendarViewModel.getDays()).observe(viewLifecycleOwner, Observer {
-            binding.progressBarWater.progress=it
-        })
+
+        binding.pieLayout.setOnClickListener {
+            navController.navigate(R.id.action_mainFragment_to_userFoodFragment)
+        }
 
 
         binding.pieChart.setUsePercentValues(true)

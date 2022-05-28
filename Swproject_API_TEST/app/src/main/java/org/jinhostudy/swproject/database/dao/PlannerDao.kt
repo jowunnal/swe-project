@@ -2,6 +2,8 @@ package org.jinhostudy.swproject.database.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import org.jinhostudy.swproject.database.entity.FoodInfo
 import org.jinhostudy.swproject.database.entity.WaterInfo
@@ -29,6 +31,14 @@ interface PlannerDao {
     @Query("select user_today_mount from waterinfo where water_date like :day")
     fun getDrinkGoal(day:String):LiveData<Int>
 
+    @Query("select * from waterinfo where water_date between :day1 and :day2")
+    fun getDrinkAmongDays(day1:String,day2:String):LiveData<List<WaterInfo>>
+
+
+    /*@Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun setWater(waterInfo: ArrayList<WaterInfo>)*/
+    //@Query("insert into waterinfo(user_input_mount,user_today_mount,user_recom_mount,water_date) values (0,0,0,'hi')")
+    //suspend fun setWater()
 
     //update WaterInfo set water_date=((SELECT datetime('now','localtime'))) where water_id=1 or water_id=2
     //update waterinfo set water_date=(select date('now')) where water_id=1
