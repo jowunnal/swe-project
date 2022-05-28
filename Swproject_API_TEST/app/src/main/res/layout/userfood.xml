@@ -24,11 +24,12 @@
             android:hint="식품(음식) 검색"
             android:textSize="20sp" />
 
-        <ImageView
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/button_NavigateToApi"
             android:layout_weight="3"
-            android:src="@drawable/searchimg" />
+            android:background="@drawable/searchimg" />
     </LinearLayout>
 
     <androidx.viewpager2.widget.ViewPager2

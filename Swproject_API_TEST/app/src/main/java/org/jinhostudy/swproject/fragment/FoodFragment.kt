@@ -7,12 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.utils.ColorTemplate
+import org.jinhostudy.swproject.R
 import org.jinhostudy.swproject.data.Meal
 import org.jinhostudy.swproject.adapter.MealPagerAdapter2
 import org.jinhostudy.swproject.databinding.UserfoodBinding
@@ -50,7 +52,9 @@ class FoodFragment : Fragment() {
                     "치킨")
             )
         )
-
+        binding.buttonNavigateToApi.setOnClickListener {
+            findNavController().navigate(R.id.action_userFoodFragment_to_apiTest)
+        }
 
         val entries = ArrayList<PieEntry>()
         entries.add(PieEntry(15f, "단백질"))
