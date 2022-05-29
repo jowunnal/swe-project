@@ -21,7 +21,7 @@ object CalendarUtil {
 
     fun getToday(cal:Calendar) : ArrayList<HashMap<String,String>>{ //일주일치 달력의 요일값을 가져오는 메소드
         val clist= ArrayList<HashMap<String,String>>()
-        Log.d("Test",SimpleDateFormat("yyyy-MM-d").format(Date(cal.timeInMillis))) // 왜 이줄에 로그를 찍어야 정상동작이 될까?
+        Log.d("Test",SimpleDateFormat("yyyy-MM-dd").format(Date(cal.timeInMillis))) // 왜 이줄에 로그를 찍어야 정상동작이 될까?
         cal.set(Calendar.DAY_OF_WEEK,Calendar.SUNDAY)
 
         for(i in 1..7){
@@ -35,7 +35,7 @@ object CalendarUtil {
                 "금"->day= "금요일"
                 "토"->day= "토요일"
             }
-            clist.add(hashMapOf(SimpleDateFormat("yyyy-MM-d").format(Date(cal.timeInMillis)) to day))
+            clist.add(hashMapOf(SimpleDateFormat("yyyy-MM-dd").format(Date(cal.timeInMillis)) to day))
             cal.add(Calendar.DAY_OF_MONTH,1)
             Log.d("Tests", clist.toString())
         }
