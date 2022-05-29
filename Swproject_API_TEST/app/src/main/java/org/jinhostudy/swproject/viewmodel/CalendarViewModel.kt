@@ -15,13 +15,13 @@ import kotlin.collections.ArrayList
 class CalendarViewModel(application: Application):ViewModel() {
     val db= PlannerDatabase.getInstance(application)
     val dao=db.plannerDao()
-    var day=MutableLiveData(SimpleDateFormat("yyyy-MM-d").format(Date(System.currentTimeMillis())))
+    var day=MutableLiveData(SimpleDateFormat("yyyy-MM-dd").format(Date(System.currentTimeMillis())))
 
     fun changeDays(day:String){
         this.day.value=day
     }
     fun indicateToCalendar(day1:String,day2:String)=dao.getDrinkAmongDays(day1,day2)
-    //fun setCalendar(waterInfo: ArrayList<WaterInfo>)=viewModelScope.launch(Dispatchers.IO) { dao.setWater(waterInfo) }
+    fun setCalendar(input:Int,today:Int,recom:Int,date:String)=viewModelScope.launch(Dispatchers.IO) { dao.setWater(input,today,recom,date) }
     //input:Int,today:Int,recom:Int,date:String
 }
 

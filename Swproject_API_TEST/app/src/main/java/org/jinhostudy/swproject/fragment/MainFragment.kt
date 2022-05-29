@@ -57,15 +57,16 @@ class MainFragment : Fragment() {
         binding.recyclerViewMainCalendar.layoutManager=GridLayoutManager(activity,7)
         /*var k=1
         var waterList=ArrayList<WaterInfo>()
-        for(i in 0..20){
-            val list=CalendarUtil.makeday(GregorianCalendar(),i-10)
+        for(i in -500..500){
+            val list=CalendarUtil.makeday(GregorianCalendar(),i)
             for(j in list){
+                calendarViewModel.setCalendar(0,0,2000,SimpleDateFormat("yyyy-MM-").format(CalendarUtil.times)+j)
                 val waterInfo=WaterInfo(0,0,2000,k,SimpleDateFormat("yyyy-MM-").format(CalendarUtil.times)+j.toString())
                 waterList.add(waterInfo)
-                Log.d("Test",waterInfo.toString())
             }
-        }
-        calendarViewModel.setCalendar(waterList)*/
+        }*/
+
+
 
         calendarViewModel.day.observe(viewLifecycleOwner, Observer { s ->
             var date=s.split("-")
@@ -77,7 +78,6 @@ class MainFragment : Fragment() {
                     adapter.setWaterInfo(it)
                 })
             adapter.setItems(day)
-            Log.d("Test","items: "+day)
             adapter.notifyDataSetChanged()
         })
 
