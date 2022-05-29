@@ -117,4 +117,54 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/progressBar_WaterToday" />
 
+    <NumberPicker
+        android:id="@+id/numberPickerAlarm_Tens"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="51dp"
+        android:layout_marginBottom="106dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/numberPickerAlarm_Units"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonWater_add" />
+
+    <NumberPicker
+        android:id="@+id/numberPickerAlarm_Units"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="51dp"
+        android:layout_marginBottom="106dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/buttonWater_AlarmAdd"
+        app:layout_constraintStart_toEndOf="@+id/numberPickerAlarm_Tens"
+        app:layout_constraintTop_toBottomOf="@+id/buttonWater_add" />
+
+    <Button
+        android:id="@+id/buttonWater_AlarmAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="51dp"
+        android:layout_marginEnd="77dp"
+        android:layout_marginBottom="84dp"
+        android:text="알람설정"
+        app:layout_constraintBottom_toTopOf="@+id/buttonWater_AlarmDelete"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/numberPickerAlarm_Units"
+        app:layout_constraintTop_toBottomOf="@+id/buttonWater_dec" />
+
+    <Button
+        android:id="@+id/buttonWater_AlarmDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="49dp"
+        android:layout_marginEnd="78dp"
+        android:layout_marginBottom="106dp"
+        android:text="알람제거"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/numberPickerAlarm_Units"
+        app:layout_constraintTop_toBottomOf="@+id/buttonWater_AlarmAdd" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

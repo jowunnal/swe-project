@@ -2,7 +2,6 @@ package org.jinhostudy.swproject.fragment
 
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,19 +18,15 @@ import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.utils.ColorTemplate
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import org.jinhostudy.swproject.R
 import org.jinhostudy.swproject.adapter.MainCalendarAdapter
-import org.jinhostudy.swproject.database.entity.WaterInfo
 import org.jinhostudy.swproject.databinding.MainFragmentBinding
 import org.jinhostudy.swproject.listener.OnItemClickListener
-import org.jinhostudy.swproject.utils.CalendarUtil
 import org.jinhostudy.swproject.viewmodel.CalendarViewModel
 import org.jinhostudy.swproject.viewmodel.CalendarViewModelFactory
 import org.jinhostudy.swproject.viewmodel.WaterViewModel
 import org.jinhostudy.swproject.viewmodel.WaterViewModelFactory
-import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -76,7 +71,7 @@ class MainFragment : Fragment() {
             var date=s.split("-")
             val cal=Calendar.getInstance()
             cal.set(date[0].toInt(),date[1].toInt()-1,date[2].toInt())
-            val day=CalendarUtil.getToday(cal)
+            val day=calendarViewModel.getToday(cal)
             CoroutineScope(Dispatchers.IO).launch{adapter.setWaterInfo(calendarViewModel.indicateToCalendar(day.first().keys.first(),day.last().keys.first()))}
             adapter.setItems(day)
             adapter.notifyDataSetChanged()
