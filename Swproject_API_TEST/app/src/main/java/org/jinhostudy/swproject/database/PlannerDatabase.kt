@@ -12,12 +12,12 @@ import org.jinhostudy.swproject.database.entity.FoodInfo
 import org.jinhostudy.swproject.database.entity.UserInfo
 import org.jinhostudy.swproject.database.entity.WaterInfo
 
-@Database(entities = [FoodInfo::class, UserInfo::class, WaterInfo::class], version =1, exportSchema = true)
+@Database(entities = [FoodInfo::class, UserInfo::class, WaterInfo::class], version =2, exportSchema = false)
 abstract class PlannerDatabase : RoomDatabase() {
     abstract fun plannerDao(): PlannerDao
 
     companion object{
-        val MIGRATION_4_5 = object : Migration(4, 5) {
+        val MIGRATION_4_5 = object : Migration(1, 2) {
             override fun migrate(database: SupportSQLiteDatabase) {
             }
         }
@@ -25,7 +25,7 @@ abstract class PlannerDatabase : RoomDatabase() {
         private var DatabaseInstance:PlannerDatabase ?=null
         fun getInstance(context: Context): PlannerDatabase {
             return DatabaseInstance?: synchronized(PlannerDatabase::class){
-                val instance=Room.databaseBuilder(context.applicationContext,PlannerDatabase::class.java,"Planner_Database").createFromAsset("database/Food_Planner.db").build()
+                val instance=Room.databaseBuilder(context.applicationContext,PlannerDatabase::class.java,"Planner_Database").createFromAsset("database/Food_Planner.db").addMigrations(MIGRATION_4_5).build()
                 DatabaseInstance=instance
                 instance
             }

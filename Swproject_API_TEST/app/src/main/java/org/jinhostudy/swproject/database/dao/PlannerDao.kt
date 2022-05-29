@@ -35,10 +35,10 @@ interface PlannerDao {
     fun getDrinkAmongDays(day1:String,day2:String):LiveData<List<WaterInfo>>
 
 
-    /*@Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun setWater(waterInfo: ArrayList<WaterInfo>)*/
-    //@Query("insert into waterinfo(user_input_mount,user_today_mount,user_recom_mount,water_date) values (0,0,0,'hi')")
-    //suspend fun setWater()
+    //@Insert(onConflict = OnConflictStrategy.IGNORE)
+    //suspend fun setWater(waterInfo: ArrayList<WaterInfo>)
+    @Query("insert into waterinfo(user_input_mount,user_today_mount,user_recom_mount,water_date) values (:input,:today,:recom,:date)")
+    suspend fun setWater(input:Int,today:Int,recom:Int,date:String)
 
     //update WaterInfo set water_date=((SELECT datetime('now','localtime'))) where water_id=1 or water_id=2
     //update waterinfo set water_date=(select date('now')) where water_id=1

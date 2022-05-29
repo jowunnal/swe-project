@@ -38,7 +38,7 @@ class MainCalendarAdapter : RecyclerView.Adapter<MainCalendarAdapter.ViewHolder>
                 "토"->day= "토요일"
             }
             // 7일달력내에 오늘의 요일에 파란색깔 칠하기
-            if(day==binding.calendar7daysDay.text && SimpleDateFormat("d").format(Date(cal.timeInMillis))==binding.calendar7daysDate.text)
+            if(day==binding.calendar7daysDay.text && SimpleDateFormat("dd").format(Date(cal.timeInMillis))==binding.calendar7daysDate.text)
                 binding.calendar7daysDay.setBackgroundColor(Color.BLUE)
             else
                 binding.calendar7daysDay.setBackgroundColor(Color.WHITE)
