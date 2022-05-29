@@ -9,6 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.jinhostudy.swproject.R
 import org.jinhostudy.swproject.utils.CalendarUtil
 import org.jinhostudy.swproject.adapter.CalendarAdapter
@@ -56,16 +59,16 @@ class CalendarFragment :Fragment(){
             numb_flag-=1
             nlist= CalendarUtil.makeday(cal,numb_flag)
             binding.calendarMonthsHeader.text=SimpleDateFormat("yyyy-MM").format(CalendarUtil.times)
-            calculateMonths(nlist)
             adapter.setItems(nlist)
+            calculateMonths(nlist)
             adapter.notifyDataSetChanged()
         }
         binding.textView24.setOnClickListener {
             numb_flag+=1
             nlist= CalendarUtil.makeday(cal,numb_flag)
             binding.calendarMonthsHeader.text=SimpleDateFormat("yyyy-MM").format(CalendarUtil.times)
-            calculateMonths(nlist)
             adapter.setItems(nlist)
+            calculateMonths(nlist)
             adapter.notifyDataSetChanged()
         }
 
@@ -78,12 +81,9 @@ class CalendarFragment :Fragment(){
 
         })
     }
-    fun calculateMonths(nlist:ArrayList<Int>){
-        calendarViewModel.indicateToCalendar(binding.calendarMonthsHeader.text.toString()+"-"+nlist.first().toString(),
-            binding.calendarMonthsHeader.text.toString()+"-"+nlist.last().toString()).observe(viewLifecycleOwner,
-            androidx.lifecycle.Observer {
-                adapter.setWaterInfo(it)
-                Log.d("Test","pp: "+it.toString())
-            })
+    fun calculateMonths(nlist:ArrayList<String>){
+        CoroutineScope(Dispatchers.IO).launch{adapter.setWaterInfo(calendarViewModel.indicateToCalendar(binding.calendarMonthsHeader.text.toString()+"-"+nlist.first().toString(),
+            binding.calendarMonthsHeader.text.toString()+"-"+nlist.last().toString()))}
+
     }
 }

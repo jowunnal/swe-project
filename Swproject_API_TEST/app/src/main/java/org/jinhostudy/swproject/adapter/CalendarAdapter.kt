@@ -11,17 +11,18 @@ import org.jinhostudy.swproject.databinding.ItemCalendarBinding
 import org.jinhostudy.swproject.listener.OnItemClickListener
 
 class CalendarAdapter : RecyclerView.Adapter<CalendarAdapter.ViewHolder>(),OnItemClickListener {
-    var list = ArrayList<Int>()
+    var list = ArrayList<String>()
     var mlistener:OnItemClickListener?=null
     var list_Water=ArrayList<Boolean>()
     inner class ViewHolder(private val itemCalendarBinding: ItemCalendarBinding) : RecyclerView.ViewHolder(itemCalendarBinding.root) {
-        fun bind(data : Int,pos:Int){
-            if(data!=0){
-                itemCalendarBinding.tvCalendarItem.text=data.toString()
+        fun bind(data : String,pos:Int){
+            if(data!="0"){
+                itemCalendarBinding.tvCalendarItem.text=data
             }
             else{
                 itemCalendarBinding.tvCalendarItem.text=""
             }
+
             if(list_Water.isNotEmpty()){
                 if(!list_Water[pos]){
                     itemCalendarBinding.calendarMonthsWater.setBackgroundColor(Color.BLUE)
@@ -29,7 +30,6 @@ class CalendarAdapter : RecyclerView.Adapter<CalendarAdapter.ViewHolder>(),OnIte
                 else
                     itemCalendarBinding.calendarMonthsWater.setBackgroundColor(Color.WHITE)
             }
-            Log.d("Test","zz: "+list_Water.toString())
             itemCalendarBinding.root.setOnClickListener {
                 SetOnItemClickListener(it,adapterPosition)
             }
@@ -50,24 +50,27 @@ class CalendarAdapter : RecyclerView.Adapter<CalendarAdapter.ViewHolder>(),OnIte
         return list.size
     }
 
-    fun setItems(list:List<Int>){
+    fun setItems(list:List<String>){
         this.list.clear()
         this.list.addAll(list)
     }
     fun getItem(pos:Int):String{
-        return list[pos].toString()
+        return list[pos]
     }
     fun setWaterInfo(waterInfo: List<WaterInfo>) {
         list_Water.clear()
+        for(data in list){
+            if(data=="0")
+                list_Water.add(true)
+        }
         for(data in waterInfo){
             val cal_water=data.user_today_mount-data.user_input_mount
             if(cal_water>0)
                 this.list_Water.add(false)
             else
                 this.list_Water.add(true)
-            Log.d("Test","tt: "+data.toString())
         }
-        Log.d("Test","qq: "+list_Water.toString())
+
 
     }
 

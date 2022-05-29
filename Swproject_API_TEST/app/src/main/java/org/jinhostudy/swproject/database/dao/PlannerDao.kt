@@ -32,7 +32,7 @@ interface PlannerDao {
     fun getDrinkGoal(day:String):LiveData<Int>
 
     @Query("select * from waterinfo where water_date between :day1 and :day2")
-    fun getDrinkAmongDays(day1:String,day2:String):LiveData<List<WaterInfo>>
+    fun getDrinkAmongDays(day1:String,day2:String):List<WaterInfo>
 
 
     //@Insert(onConflict = OnConflictStrategy.IGNORE)
