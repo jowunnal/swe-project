@@ -1,28 +1,26 @@
 package org.jinhostudy.swproject.viewmodel
 
 import android.app.Application
-import android.util.Log
-import androidx.lifecycle.*
 import androidx.lifecycle.Observer
-import kotlinx.coroutines.Dispatchers
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import org.jinhostudy.swproject.database.PlannerDatabase
-import org.jinhostudy.swproject.database.entity.WaterInfo
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 class CalendarViewModel(application: Application):ViewModel() {
     val db= PlannerDatabase.getInstance(application)
     val dao=db.plannerDao()
-    var day=MutableLiveData(SimpleDateFormat("yyyy-MM-d").format(Date(System.currentTimeMillis())))
+    private var day:String=SimpleDateFormat("yyyy-MM-dd").format(Date(System.currentTimeMillis()))
 
     fun changeDays(day:String){
-        this.day.value=day
+        this.day=day
     }
-    fun indicateToCalendar(day1:String,day2:String)=dao.getDrinkAmongDays(day1,day2)
-    //fun setCalendar(waterInfo: ArrayList<WaterInfo>)=viewModelScope.launch(Dispatchers.IO) { dao.setWater(waterInfo) }
-    //input:Int,today:Int,recom:Int,date:String
+    fun getDays():String{
+        return this.day
+    }
 }
 
 class CalendarViewModelFactory(private val application: Application) : ViewModelProvider.Factory{

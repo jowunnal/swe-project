@@ -1,7 +1,6 @@
 package org.jinhostudy.swproject.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,7 +18,6 @@ import org.jinhostudy.swproject.viewmodel.CalendarViewModel
 import org.jinhostudy.swproject.viewmodel.CalendarViewModelFactory
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 class CalendarFragment :Fragment(){
     var _binding : CalendarBinding ?= null
@@ -46,44 +44,31 @@ class CalendarFragment :Fragment(){
 
 
         var nlist= CalendarUtil.makeday(cal,0)
-        binding.calendarMonthsHeader.text=SimpleDateFormat("yyyy-MM").format(CalendarUtil.times)
+        binding.textView14.text=SimpleDateFormat("yyyy-MM").format(CalendarUtil.times)
         adapter.setItems(nlist)
-        calculateMonths(nlist)
-        adapter.notifyDataSetChanged()
-
 
         binding.textView23.setOnClickListener {
             numb_flag-=1
             nlist= CalendarUtil.makeday(cal,numb_flag)
-            binding.calendarMonthsHeader.text=SimpleDateFormat("yyyy-MM").format(CalendarUtil.times)
-            calculateMonths(nlist)
+            binding.textView14.text=SimpleDateFormat("yyyy-MM").format(CalendarUtil.times)
             adapter.setItems(nlist)
             adapter.notifyDataSetChanged()
         }
         binding.textView24.setOnClickListener {
             numb_flag+=1
             nlist= CalendarUtil.makeday(cal,numb_flag)
-            binding.calendarMonthsHeader.text=SimpleDateFormat("yyyy-MM").format(CalendarUtil.times)
-            calculateMonths(nlist)
+            binding.textView14.text=SimpleDateFormat("yyyy-MM").format(CalendarUtil.times)
             adapter.setItems(nlist)
             adapter.notifyDataSetChanged()
         }
 
         adapter.setItemClickListener(object :OnItemClickListener{
             override fun SetOnItemClickListener(v: View, pos: Int) {
-                val day= binding.calendarMonthsHeader.text as String +"-"+adapter.getItem(pos)
+                val day= binding.textView14.text as String +"-"+adapter.getItem(pos)
                 calendarViewModel.changeDays(day)
                 findNavController().popBackStack()
             }
 
         })
-    }
-    fun calculateMonths(nlist:ArrayList<Int>){
-        calendarViewModel.indicateToCalendar(binding.calendarMonthsHeader.text.toString()+"-"+nlist.first().toString(),
-            binding.calendarMonthsHeader.text.toString()+"-"+nlist.last().toString()).observe(viewLifecycleOwner,
-            androidx.lifecycle.Observer {
-                adapter.setWaterInfo(it)
-                Log.d("Test","pp: "+it.toString())
-            })
     }
 }

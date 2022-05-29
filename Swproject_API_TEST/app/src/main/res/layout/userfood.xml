@@ -24,47 +24,70 @@
             android:hint="식품(음식) 검색"
             android:textSize="20sp" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/searchFoodAppCompatButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/button_NavigateToApi"
             android:layout_weight="3"
             android:background="@drawable/searchimg" />
     </LinearLayout>
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/mealViewPager2"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        app:layout_constraintBottom_toTopOf="@id/calorieTextView"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/searchLinearLayout" />
 
-    <TextView
-        android:id="@+id/calorieTextView"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mealKcalChartLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:gravity="center"
-        android:text="현재 칼로리 : 2400kcal"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/pieChart"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/mealViewPager2" />
-
-    <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/pieChart"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/calorieTextView" />
+        app:layout_constraintTop_toBottomOf="@id/searchLinearLayout"
+        app:layout_constraintVertical_bias="0.0">
+
+        <Spinner
+            android:id="@+id/bldSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/mealViewPager2"
+            app:layout_constraintLeft_toLeftOf="@id/mealViewPager2"
+            app:layout_constraintRight_toLeftOf="@id/pieChart"
+            app:layout_constraintTop_toTopOf="@id/mealKcalChartLayout" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/mealViewPager2"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            app:layout_constraintBottom_toTopOf="@id/calorieTextView"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bldSpinner" />
+
+        <TextView
+            android:id="@+id/calorieTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center"
+            android:text="현재 칼로리 : 2400kcal"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/pieChart"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mealViewPager2" />
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/pieChart"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/calorieTextView" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
