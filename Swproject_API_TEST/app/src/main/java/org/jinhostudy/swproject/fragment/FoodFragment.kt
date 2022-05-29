@@ -5,8 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -19,11 +17,14 @@ import com.github.mikephil.charting.utils.ColorTemplate
 import org.jinhostudy.swproject.R
 import org.jinhostudy.swproject.data.Meal
 import org.jinhostudy.swproject.adapter.MealPagerAdapter2
-import org.jinhostudy.swproject.api.ApiFragment
 import org.jinhostudy.swproject.databinding.UserfoodBinding
 
 class FoodFragment : Fragment() {
 
+
+    private lateinit var mealViewPager2: ViewPager2
+
+    private lateinit var calorieTextView: TextView
 
     var _binding : UserfoodBinding ?=null
     val binding get() = _binding !!
@@ -41,12 +42,7 @@ class FoodFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.pieChart.setUsePercentValues(true)
 
-        val items = arrayOf("아침", "점심", "저녁")
-        val myAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, items)
-
-        binding.bldSpinner.adapter = myAdapter
-
-        binding.mealViewPager2.adapter = MealPagerAdapter2(
+        mealViewPager2.adapter = MealPagerAdapter2(
             listOf(
                 Meal("아침",
                     "김치찌개"),
@@ -56,63 +52,9 @@ class FoodFragment : Fragment() {
                     "치킨")
             )
         )
-
-        binding.searchFoodAppCompatButton.setOnClickListener {
+        binding.buttonNavigateToApi.setOnClickListener {
             findNavController().navigate(R.id.action_userFoodFragment_to_apiTest)
         }
-
-
-
-//        binding.bldSpinner.onItemSelectedListener =
-//            object : AdapterView.OnItemSelectedListener {
-//                override fun onItemSelected(
-//                    parent: AdapterView<*>?,
-//                    view: View?,
-//                    position: Int,
-//                    id: Long
-//                ) {
-//
-//
-//                    //아이템이 클릭 되면 맨 위부터 position 0번부터 순서대로 동작하게 됩니다.
-//                    when (position) {
-//                        0 -> {
-//                            binding.searchFoodAppCompatButton.setOnClickListener {
-//
-//
-////                            mealViewPager2.adapter = MealPagerAdapter2(
-////                                listOf(
-////                                    Meal(items[0], ""))
-////
-////                            )
-//                            }
-//                        }
-//                        1 -> {
-//                            binding.searchFoodAppCompatButton.setOnClickListener {
-////                            mealViewPager2.adapter = MealPagerAdapter2(
-////                                listOf(
-////                                    Meal(items[1], ""))
-////
-////                            )
-//                            }
-//                        }
-//
-//                        else -> {
-//                            binding.searchFoodAppCompatButton.setOnClickListener {
-////                            mealViewPager2.adapter = MealPagerAdapter2(
-////                                listOf(
-////                                    Meal(items[2], ""))
-////
-////                            )
-//                            }
-//                        }
-//                    }
-//                }
-//
-//                override fun onNothingSelected(parent: AdapterView<*>?) {
-//                    TODO("Not yet implemented")
-//                }
-//            }
-
 
         val entries = ArrayList<PieEntry>()
         entries.add(PieEntry(15f, "단백질"))

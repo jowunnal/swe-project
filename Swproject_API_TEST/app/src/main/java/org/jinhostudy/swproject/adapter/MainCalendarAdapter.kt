@@ -1,11 +1,12 @@
 package org.jinhostudy.swproject.adapter
 
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import org.jinhostudy.swproject.utils.CalendarUtil
+import org.jinhostudy.swproject.database.entity.WaterInfo
 import org.jinhostudy.swproject.databinding.ItemCalendar7daysBinding
 import org.jinhostudy.swproject.listener.OnItemClickListener
 import java.text.SimpleDateFormat
@@ -14,14 +15,18 @@ import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
 class MainCalendarAdapter : RecyclerView.Adapter<MainCalendarAdapter.ViewHolder>(),OnItemClickListener {
-    val key_list=ArrayList<Int>()
-    var list=HashMap<Int,String>()
+    var list= ArrayList<HashMap<String, String>>()
     var mlistener:OnItemClickListener ?=null
+    var list_Water=ArrayList<Boolean>()
     inner class ViewHolder(private val binding: ItemCalendar7daysBinding):RecyclerView.ViewHolder(binding.root) {
-        fun bind(data:Int){
-            binding.calendar7daysDate.text=data.toString()
-            binding.calendar7daysDay.text=list.getValue(data)
-            val cal=Calendar.getInstance()
+        fun bind(data:HashMap<String,String>,pos:Int){
+            for(key in data.keys){ // 7일달력내에 일자+요일 나타내기
+                binding.calendar7daysDate.text=key.split('-')[2]
+                binding.calendar7daysDay.text=data[key]
+            }
+
+            //오늘의요일을 받아와서
+            val cal= Calendar.getInstance()
             var day=SimpleDateFormat("E").format(Date(cal.timeInMillis))
             when(day){
                 "일"->day= "일요일"
@@ -32,8 +37,23 @@ class MainCalendarAdapter : RecyclerView.Adapter<MainCalendarAdapter.ViewHolder>
                 "금"->day= "금요일"
                 "토"->day= "토요일"
             }
-            if(day==list.getValue(data) && SimpleDateFormat("d").format(Date(cal.timeInMillis)).toInt()==data)
+            // 7일달력내에 오늘의 요일에 파란색깔 칠하기
+            if(day==binding.calendar7daysDay.text && SimpleDateFormat("d").format(Date(cal.timeInMillis))==binding.calendar7daysDate.text)
                 binding.calendar7daysDay.setBackgroundColor(Color.BLUE)
+            else
+                binding.calendar7daysDay.setBackgroundColor(Color.WHITE)
+
+            //7일달력내에 물의양이 목표량보다 덜먹었다면 파란색칠하기
+            if(list_Water.isNotEmpty()){
+                if(!list_Water[pos]){
+                    binding.calendar7daysWater.setBackgroundColor(Color.BLUE)
+                }
+                else
+                    binding.calendar7daysWater.setBackgroundColor(Color.WHITE)
+            }
+
+
+            //7일달력 클릭 리스너
             binding.root.setOnClickListener {
                 SetOnItemClickListener(it,adapterPosition)
             }
@@ -48,18 +68,34 @@ class MainCalendarAdapter : RecyclerView.Adapter<MainCalendarAdapter.ViewHolder>
     }
 
     override fun onBindViewHolder(holder: MainCalendarAdapter.ViewHolder, position: Int) {
-        holder.bind(key_list[position])
+        holder.bind(list[position],position)
     }
 
     override fun getItemCount(): Int {
-        return key_list.size
+        return list.size
     }
 
-    fun setItems(list:HashMap<Int,String>){
+    fun setItems(list: ArrayList<HashMap<String, String>>){
         this.list.clear()
-        this.key_list.clear()
-        key_list.addAll(list.keys)
-        this.list=list
+        this.list.addAll(list)
+    }
+    fun getItem(pos:Int): String{
+        var data=""
+        for(key in list[pos].keys){
+            data= key
+        }
+        return data
+    }
+    fun setWaterInfo(waterInfo: List<WaterInfo>) {
+        list_Water.clear()
+        for(data in waterInfo){
+            val cal_water=data.user_today_mount-data.user_input_mount
+            if(cal_water>0)
+                this.list_Water.add(false)
+            else
+                this.list_Water.add(true)
+        }
+
     }
     fun SetItemClickListener(listener: OnItemClickListener){
         this.mlistener=listener
