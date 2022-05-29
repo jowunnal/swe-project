@@ -30,21 +30,27 @@ class WaterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        calendarViewModel.day.observe(viewLifecycleOwner, Observer { s ->
+            waterViewModel.getDrinkGoal(s).observe(viewLifecycleOwner, Observer {
+                binding.progressBarWaterToday.max=it
+                binding.tvWaterGoal.text= it.toString()
+            })
+            waterViewModel.getDrink(s).observe(viewLifecycleOwner, Observer {
+                binding.progressBarWaterToday.progress=it
+                binding.tvWaterPresent.text=it.toString()
+            })
+        })
 
-        waterViewModel.getDrinkGoal(calendarViewModel.getDays()).observe(viewLifecycleOwner, Observer {
-            binding.progressBarWaterToday.max=it
-            binding.tvWaterGoal.text= it.toString()
-        })
-        waterViewModel.getDrink(calendarViewModel.getDays()).observe(viewLifecycleOwner, Observer {
-            binding.progressBarWaterToday.progress=it
-            binding.tvWaterPresent.text=it.toString()
-        })
         binding.tvWaterHeader.text="오늘 물 섭취량"
         binding.buttonWaterAdd.setOnClickListener {
-            waterViewModel.plusDrink(calendarViewModel.getDays())
+            calendarViewModel.day.observe(viewLifecycleOwner, Observer {
+                waterViewModel.plusDrink(it)
+            })
         }
         binding.buttonWaterDec.setOnClickListener {
-            waterViewModel.minusDrink(calendarViewModel.getDays())
+            calendarViewModel.day.observe(viewLifecycleOwner, Observer {
+                waterViewModel.minusDrink(it)
+            })
         }
 
 
@@ -53,19 +59,27 @@ class WaterFragment : Fragment() {
                 true -> {
                     binding.tvWaterHeader.text="오늘 물 목표량"
                     binding.buttonWaterAdd.setOnClickListener {
-                        waterViewModel.plusDrinkGoal(calendarViewModel.getDays())
+                        calendarViewModel.day.observe(viewLifecycleOwner, Observer {
+                            waterViewModel.plusDrinkGoal(it)
+                        })
                     }
                     binding.buttonWaterDec.setOnClickListener {
-                        waterViewModel.minusDrinkGoal(calendarViewModel.getDays())
+                        calendarViewModel.day.observe(viewLifecycleOwner, Observer {
+                            waterViewModel.minusDrinkGoal(it)
+                        })
                     }
                 }
                 false->{
                     binding.tvWaterHeader.text="오늘 물 섭취량"
                     binding.buttonWaterAdd.setOnClickListener {
-                        waterViewModel.plusDrink(calendarViewModel.getDays())
+                        calendarViewModel.day.observe(viewLifecycleOwner, Observer {
+                            waterViewModel.plusDrink(it)
+                        })
                     }
                     binding.buttonWaterDec.setOnClickListener {
-                        waterViewModel.minusDrink(calendarViewModel.getDays())
+                        calendarViewModel.day.observe(viewLifecycleOwner, Observer {
+                            waterViewModel.minusDrink(it)
+                        })
                     }
                 }
             }

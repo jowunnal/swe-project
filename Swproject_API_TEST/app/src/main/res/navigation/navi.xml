@@ -26,9 +26,6 @@
         android:label="main_fragment"
         tools:layout="@layout/main_fragment" >
         <action
-            android:id="@+id/action_mainFragment_to_apiTest"
-            app:destination="@id/apiTest" />
-        <action
             android:id="@+id/action_mainFragment_to_calendarView"
             app:destination="@id/calendarView" />
         <action
