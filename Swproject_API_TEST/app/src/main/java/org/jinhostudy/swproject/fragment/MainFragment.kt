@@ -17,6 +17,10 @@ import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.utils.ColorTemplate
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 import org.jinhostudy.swproject.R
 import org.jinhostudy.swproject.adapter.MainCalendarAdapter
 import org.jinhostudy.swproject.database.entity.WaterInfo
@@ -55,7 +59,7 @@ class MainFragment : Fragment() {
         adapter= MainCalendarAdapter()
         binding.recyclerViewMainCalendar.adapter=adapter
         binding.recyclerViewMainCalendar.layoutManager=GridLayoutManager(activity,7)
-        /*var k=1
+        /*var k=1 //데이터 생성하는 코드 1980년~2050년
         var waterList=ArrayList<WaterInfo>()
         for(i in -500..500){
             val list=CalendarUtil.makeday(GregorianCalendar(),i)
@@ -73,10 +77,7 @@ class MainFragment : Fragment() {
             val cal=Calendar.getInstance()
             cal.set(date[0].toInt(),date[1].toInt()-1,date[2].toInt())
             val day=CalendarUtil.getToday(cal)
-            calendarViewModel.indicateToCalendar(day.first().keys.first(),day.last().keys.first()).observe(viewLifecycleOwner,
-                Observer {
-                    adapter.setWaterInfo(it)
-                })
+            CoroutineScope(Dispatchers.IO).launch{adapter.setWaterInfo(calendarViewModel.indicateToCalendar(day.first().keys.first(),day.last().keys.first()))}
             adapter.setItems(day)
             adapter.notifyDataSetChanged()
         })
