@@ -13,7 +13,5 @@ class ApiViewModel(application: Application) : AndroidViewModel(application) {
     private var plannerDao:PlannerDao=db!!.plannerDao()
 
 
-    fun getAll() = viewModelScope.launch {plannerDao.getFoodInfo()}
-
 }
 
