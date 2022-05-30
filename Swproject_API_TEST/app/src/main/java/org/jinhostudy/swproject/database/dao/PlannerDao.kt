@@ -35,6 +35,9 @@ interface PlannerDao {
     fun getDrinkAmongDays(day1:String,day2:String):List<WaterInfo>
 
 
+    @Query("insert into UserInfo(user_id,user_age,user_height,user_weight) values (:userId,:age,:height,:weight) ")
+    suspend fun inputFirstUserData(userId:Int,age:Int,height:Int,weight:Int)
+
     //@Insert(onConflict = OnConflictStrategy.IGNORE)
     //suspend fun setWater(waterInfo: ArrayList<WaterInfo>)
     @Query("insert into waterinfo(user_input_mount,user_today_mount,user_recom_mount,water_date) values (:input,:today,:recom,:date)")
