@@ -23,6 +23,7 @@ class InitialUserInputFragment :Fragment() {
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initalUserViewModel= InitalUserViewModel(requireActivity().application)
