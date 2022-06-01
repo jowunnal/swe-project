@@ -34,6 +34,8 @@ interface PlannerDao {
 
 
 
+    @Query("insert into UserInfo(user_id,user_age,user_height,user_weight) values (:userId,:age,:height,:weight) ")
+    suspend fun inputFirstUserData(userId:Int,age:Int,height:Int,weight:Int)
 
     //@Insert(onConflict = OnConflictStrategy.IGNORE)
     //suspend fun setWater(waterInfo: ArrayList<WaterInfo>)
