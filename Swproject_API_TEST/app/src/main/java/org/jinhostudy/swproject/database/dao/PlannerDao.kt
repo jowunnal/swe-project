@@ -10,8 +10,6 @@ import org.jinhostudy.swproject.database.entity.WaterInfo
 
 @Dao
 interface PlannerDao {
-    @Query("select * from FoodInfo")
-    suspend fun getFoodInfo():List<FoodInfo>
 
     @Query("update waterinfo set user_input_mount=(select user_input_mount from WaterInfo where water_date like :day)+100 where water_date like :day")
     suspend fun plusDrink(day:String)
@@ -33,6 +31,7 @@ interface PlannerDao {
 
     @Query("select * from waterinfo where water_date between :day1 and :day2")
     fun getDrinkAmongDays(day1:String,day2:String):List<WaterInfo>
+
 
 
     @Query("insert into UserInfo(user_id,user_age,user_height,user_weight) values (:userId,:age,:height,:weight) ")
