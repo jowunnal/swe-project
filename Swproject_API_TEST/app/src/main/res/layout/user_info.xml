@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.UserFragment">
+
+    <EditText
+        android:id="@+id/editTextView_weight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="단위: kg"
+        android:imeOptions="actionDone"
+        android:inputType="number"
+        android:minHeight="48dp"
+        android:singleLine="true"
+        app:layout_constraintEnd_toStartOf="@+id/buttonUser_Update"
+        app:layout_constraintStart_toEndOf="@+id/Text_weight"
+        app:layout_constraintTop_toBottomOf="@+id/editTextView_height" />
+
+    <EditText
+        android:id="@+id/editTextView_age"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="68dp"
+        android:ems="10"
+        android:hint="숫자로만 입력해 주세요."
+        android:imeOptions="actionDone"
+        android:inputType="number"
+        android:minHeight="48dp"
+        android:singleLine="true"
+        app:layout_constraintEnd_toStartOf="@+id/buttonUser_Update"
+        app:layout_constraintStart_toEndOf="@+id/Text_age"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextView_height"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="단위: cm"
+        android:imeOptions="actionDone"
+        android:inputType="number"
+        android:minHeight="48dp"
+        android:singleLine="true"
+        app:layout_constraintEnd_toStartOf="@+id/buttonUser_Update"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/Text_height"
+        app:layout_constraintTop_toBottomOf="@+id/editTextView_age" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView_Record"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonUser_Delete"
+        app:layout_constraintVertical_bias="0.129" />
+
+    <Button
+        android:id="@+id/buttonUser_Update"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="196dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="#BAE6B3"
+        android:text="수정"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#0A182E"
+        app:iconTint="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/editTextView_weight"
+        app:layout_constraintTop_toTopOf="parent"
+        app:rippleColor="#000000" />
+
+    <Button
+        android:id="@+id/buttonUser_Delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="132dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="#BAE6B3"
+        android:text="삭제"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#871B1B"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonUser_Update" />
+
+    <TextView
+        android:id="@+id/Text_weight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="36dp"
+        android:text="몸무게: "
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/editTextView_weight"
+        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Text_height" />
+
+    <TextView
+        android:id="@+id/Text_height"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="28dp"
+        android:text="키: "
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/editTextView_height"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Text_age" />
+
+    <TextView
+        android:id="@+id/Text_age"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="76dp"
+        android:layout_marginEnd="13dp"
+        android:text="나이: "
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/editTextView_age"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/Text_Presentuserage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="44dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.04"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Text_weight" />
+
+    <TextView
+        android:id="@+id/Text_PresentUserheight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.04"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Text_Presentuserage" />
+
+    <TextView
+        android:id="@+id/Text_PresentUserweight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.04"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Text_PresentUserheight" />
+
+    <TextView
+        android:id="@+id/Text_PresentUserBMI"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintEnd_toStartOf="@+id/buttonUser_Delete"
+        app:layout_constraintHorizontal_bias="0.393"
+        app:layout_constraintStart_toEndOf="@+id/Text_PresentUserweight"
+        app:layout_constraintTop_toBottomOf="@+id/Text_PresentUserheight" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
