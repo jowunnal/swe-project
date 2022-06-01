@@ -34,6 +34,9 @@
         <action
             android:id="@+id/action_mainFragment_to_waterFragment"
             app:destination="@id/waterFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_userFragment"
+            app:destination="@id/userFragment" />
     </fragment>
     <fragment
         android:id="@+id/userFoodFragment"
@@ -49,4 +52,9 @@
         android:name="org.jinhostudy.swproject.fragment.WaterFragment"
         android:label="water_fragment"
         tools:layout="@layout/water_fragment" />
+    <fragment
+        android:id="@+id/userFragment"
+        android:name="org.jinhostudy.swproject.fragment.UserFragment"
+        android:label="user_info"
+        tools:layout="@layout/user_info" />
 </navigation>

@@ -105,6 +105,10 @@ class MainFragment : Fragment() {
             navController.navigate(R.id.action_mainFragment_to_userFoodFragment)
         }
 
+        binding.linearLayout.setOnClickListener {
+            navController.navigate(R.id.action_mainFragment_to_userFragment)
+        }
+
 
         binding.pieChart.setUsePercentValues(true)
         val entries = ArrayList<PieEntry>()
