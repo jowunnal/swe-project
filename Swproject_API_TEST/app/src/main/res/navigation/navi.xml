@@ -57,15 +57,15 @@
         android:label="water_fragment"
         tools:layout="@layout/water_fragment" />
     <fragment
-<<<<<<< HEAD
         android:id="@+id/initialUserInputFragment"
         android:name="org.jinhostudy.swproject.fragment.InitialUserInputFragment"
         android:label="initialuserinput"
         tools:layout="@layout/initialuserinput" />
-=======
+    <fragment
         android:id="@+id/userFragment"
         android:name="org.jinhostudy.swproject.fragment.UserFragment"
         android:label="user_info"
         tools:layout="@layout/user_info" />
->>>>>>> brch_jinho
+
+
 </navigation>

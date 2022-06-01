@@ -10,5 +10,5 @@ class InitalUserViewModel(application: Application):ViewModel() {
     var db = PlannerDatabase.getInstance(application)
     val dao=db.plannerDao()
 
-    fun inputUserFirstData(userId:Int,age:Int,height:Int,weight:Int)=viewModelScope.launch{dao.inputFirstUserData(userId,age,height,weight)}
+    fun inputUserFirstData(age:Int,height:Int,weight:Int,date:String)=viewModelScope.launch{dao.inputFirstUserData(age,height,weight,date)}
 }

@@ -2,6 +2,7 @@ package org.jinhostudy.swproject.fragment
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,10 +24,7 @@ import org.jinhostudy.swproject.R
 import org.jinhostudy.swproject.adapter.MainCalendarAdapter
 import org.jinhostudy.swproject.databinding.MainFragmentBinding
 import org.jinhostudy.swproject.listener.OnItemClickListener
-import org.jinhostudy.swproject.viewmodel.CalendarViewModel
-import org.jinhostudy.swproject.viewmodel.CalendarViewModelFactory
-import org.jinhostudy.swproject.viewmodel.WaterViewModel
-import org.jinhostudy.swproject.viewmodel.WaterViewModelFactory
+import org.jinhostudy.swproject.viewmodel.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -64,6 +62,14 @@ class MainFragment : Fragment() {
                 waterList.add(waterInfo)
             }
         }*/
+        val userViewModel=UserViewModel(requireActivity().application)
+
+        userViewModel.showUserInfo().observe(viewLifecycleOwner, Observer {
+            if(it.isNullOrEmpty()){
+                navController.navigate(R.id.action_mainFragment_to_initialUserInputFragment2)
+            }
+        })
+
 
 
 

@@ -9,6 +9,8 @@ import androidx.navigation.fragment.findNavController
 import org.jinhostudy.swproject.R
 import org.jinhostudy.swproject.databinding.InitialuserinputBinding
 import org.jinhostudy.swproject.viewmodel.InitalUserViewModel
+import java.text.SimpleDateFormat
+import java.util.*
 
 class InitialUserInputFragment :Fragment() {
     var _binding : InitialuserinputBinding?=null
@@ -28,7 +30,8 @@ class InitialUserInputFragment :Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initalUserViewModel= InitalUserViewModel(requireActivity().application)
         binding.buttonUserstore.setOnClickListener{
-            initalUserViewModel.inputUserFirstData(1,binding.userInputAge.text.toString().toInt(),binding.userInputHeight.text.toString().toInt(),binding.userInputWeight.text.toString().toInt())
+            initalUserViewModel.inputUserFirstData(binding.userInputAge.text.toString().toInt(),binding.userInputHeight.text.toString().toInt(),binding.userInputWeight.text.toString().toInt(),SimpleDateFormat("yyyy-MM-dd").format(
+                Date(System.currentTimeMillis())))
             findNavController().popBackStack()
         }
     }

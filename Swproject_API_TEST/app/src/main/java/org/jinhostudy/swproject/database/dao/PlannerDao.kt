@@ -42,8 +42,8 @@ interface PlannerDao {
     @Query("delete from UserInfo where user_age = :Selectage and user_height = :Selectheight and user_weight = :Selectweight")
     fun deleteUserInfo(Selectage :Int, Selectheight :Double, Selectweight :Double)
 
-    @Query("insert into UserInfo(user_id,user_age,user_height,user_weight) values (:userId,:age,:height,:weight) ")
-    suspend fun inputFirstUserData(userId:Int,age:Int,height:Int,weight:Int)
+    @Query("insert into UserInfo(user_age,user_height,user_weight,user_date) values (:age,:height,:weight,:date) ")
+    suspend fun inputFirstUserData(age:Int,height:Int,weight:Int,date:String)
 
     //@Insert(onConflict = OnConflictStrategy.IGNORE)
     //suspend fun setWater(waterInfo: ArrayList<WaterInfo>)
