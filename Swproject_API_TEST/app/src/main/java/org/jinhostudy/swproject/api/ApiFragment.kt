@@ -38,8 +38,6 @@ class ApiFragment : Fragment() {
         }
 
         binding.button.setOnClickListener {
-            val inputMethodManager = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            inputMethodManager.hideSoftInputFromWindow(binding.editTextTextPersonName.windowToken, 0) //버튼눌려지면 edittext로열린 키패드닫기
             val service = MyRetrofit.iRetrofit
             val text=binding.editTextTextPersonName.text.toString() //버튼이눌려졋을때 텍스트뷰에있는문자 받아서 api에요청해서 같은이름의 식품만가져오기
 

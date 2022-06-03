@@ -37,6 +37,10 @@
         <action
             android:id="@+id/action_mainFragment_to_initialUserInputFragment2"
             app:destination="@id/initialUserInputFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_userFragment"
+            app:destination="@id/userFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/userFoodFragment"
@@ -57,4 +61,11 @@
         android:name="org.jinhostudy.swproject.fragment.InitialUserInputFragment"
         android:label="initialuserinput"
         tools:layout="@layout/initialuserinput" />
+    <fragment
+        android:id="@+id/userFragment"
+        android:name="org.jinhostudy.swproject.fragment.UserFragment"
+        android:label="user_info"
+        tools:layout="@layout/user_info" />
+
+
 </navigation>

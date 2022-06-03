@@ -9,8 +9,9 @@ import org.jinhostudy.swproject.database.PlannerDatabase
 
 class WaterViewModel(application: Application) : ViewModel() {
     private val db= PlannerDatabase.getInstance(application)
-    private val dao=db.plannerDao()
-    var checker=false
+    //추상클래스인 데이터베이스 클래스의 어플리케이션 라이프사이클스쿠프 상의 인스턴스 싱글톤형태로 최초생성후 이후생성된 객체를 가져옴
+    private val dao=db.plannerDao() // 데이터베이스 객체내의 dao객체를 가져옴. dao객체내에 데이터베이스의 모든 query메소드가 있음
+    var checker=false //필요없음
 
     fun plusDrink(day:String)=viewModelScope.launch { dao.plusDrink(day) }
     fun minusDrink(day:String)=viewModelScope.launch { dao.minusDrink(day) }
