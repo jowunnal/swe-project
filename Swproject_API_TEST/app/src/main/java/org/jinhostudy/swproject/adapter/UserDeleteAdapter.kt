@@ -8,8 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import org.jinhostudy.swproject.database.entity.UserInfo
 import org.jinhostudy.swproject.databinding.ItemUserinfoBinding
 import org.jinhostudy.swproject.listener.OnItemClickListener
+import org.jinhostudy.swproject.viewmodel.UserViewModel
 
-class UserAdapter: RecyclerView.Adapter<UserAdapter.ViewHolder>(),OnItemClickListener {
+class UserDeleteAdapter: RecyclerView.Adapter<UserDeleteAdapter.ViewHolder>(),OnItemClickListener {
     val list = ArrayList<UserInfo>()
     var listener:OnItemClickListener ?= null
     inner class ViewHolder(private var itemBinding: ItemUserinfoBinding):RecyclerView.ViewHolder(itemBinding.root){

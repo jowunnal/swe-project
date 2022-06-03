@@ -34,7 +34,7 @@ interface PlannerDao {
     fun getDrinkAmongDays(day1:String,day2:String):MutableList<WaterInfo>
 
     @Query("select * from UserInfo")
-    fun showUserInfo():LiveData<List<UserInfo>>
+    fun getUserInfo():LiveData<List<UserInfo>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertUserInfo(userInfo: UserInfo)

@@ -1,14 +1,18 @@
 package org.jinhostudy.swproject.fragment
 
+import android.content.Context
 import android.os.Bundle
+import android.text.Selection
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import org.jinhostudy.swproject.adapter.UserAdapter
+import org.jinhostudy.swproject.adapter.UserDeleteAdapter
 import org.jinhostudy.swproject.database.entity.UserInfo
 import org.jinhostudy.swproject.databinding.UserInfoBinding
 import org.jinhostudy.swproject.listener.OnItemClickListener
@@ -18,7 +22,7 @@ class UserFragment:Fragment() {
     var _binding: UserInfoBinding ?= null
     val binding get() = _binding !!
     lateinit var userViewModel: UserViewModel
-    lateinit var userAdapter: UserAdapter
+    lateinit var userDeleteAdapter: UserDeleteAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,10 +36,10 @@ class UserFragment:Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         userViewModel = UserViewModel(requireActivity().application)
-        userAdapter = UserAdapter()
+        userDeleteAdapter = UserDeleteAdapter()
         userViewModel.showUserInfo().observe(viewLifecycleOwner, Observer {
-            userAdapter.setItems(it)
-            userAdapter.notifyDataSetChanged()
+            userDeleteAdapter.setItems(it)
+            userDeleteAdapter.notifyDataSetChanged()
             if(it.isNotEmpty()){
                 binding.TextPresentuserage.text = String.format("나이: %s",it.last().user_age)
                 binding.TextPresentUserheight.text = String.format("키: %s",it.last().user_height)
@@ -44,18 +48,18 @@ class UserFragment:Fragment() {
 
             }
         })
-        binding.recyclerViewRecord.adapter=userAdapter
+        binding.recyclerViewRecord.adapter=userDeleteAdapter
         binding.recyclerViewRecord.layoutManager=LinearLayoutManager(requireActivity(),LinearLayoutManager.VERTICAL,false)
-        userAdapter.SetItemClickListener(object:OnItemClickListener{
+        userDeleteAdapter.SetItemClickListener(object:OnItemClickListener{
             override fun SetOnItemClickListener(v: View, pos: Int) {
-                var deleteuser = userAdapter.getItem(pos)
+                var deleteuser = userDeleteAdapter.getItem(pos)
                 binding.buttonUserDelete.setOnClickListener { userViewModel.deleteUserInfo(deleteuser.user_age, deleteuser.user_height, deleteuser.user_weight) }
             }
         })
         binding.buttonUserUpdate.setOnClickListener {
             if(binding.editTextViewAge.text.isBlank() || binding.editTextViewHeight.text.isBlank() || binding.editTextViewWeight.text.isBlank())
             {
-                Toast.makeText(requireActivity(),"사용자 정보가 입력되지 않았습니다.",Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireActivity(),"나이, 키, 몸무게를 입력해주세요!",Toast.LENGTH_SHORT).show()
             }
             else {
                 userViewModel.editUserInfo(
