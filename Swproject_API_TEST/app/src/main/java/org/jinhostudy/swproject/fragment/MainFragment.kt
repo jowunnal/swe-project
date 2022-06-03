@@ -55,16 +55,7 @@ class MainFragment : Fragment() {
         adapter= MainCalendarAdapter()
         binding.recyclerViewMainCalendar.adapter=adapter
         binding.recyclerViewMainCalendar.layoutManager=GridLayoutManager(activity,7)
-        val day=calendarViewModel.getToday(Calendar.getInstance())
-        val dateList=ArrayList<String>()
-        for(data in day){
-          dateList.add(data.keys.first().split('-')[2])
-        }
 
-        CoroutineScope(Dispatchers.IO).launch{
-            adapter.setItems(day,calendarViewModel.indicateToCalendar(day.first().keys.first(),day.last().keys.first(),dateList))
-        }
-        adapter.notifyDataSetChanged()
         /*var k=1 //데이터 생성하는 코드 1980년~2050년
         var waterList=ArrayList<WaterInfo>()
         for(i in -500..500){

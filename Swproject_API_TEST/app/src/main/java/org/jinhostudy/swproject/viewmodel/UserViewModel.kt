@@ -13,7 +13,9 @@ class UserViewModel(application: Application): ViewModel() {
     var db = PlannerDatabase.getInstance(application)
     var dao = db.plannerDao()
 
-    fun showUserInfo() = dao.getUserInfo()
+    fun showUserInfo() = dao.showUserInfo()
+
     fun editUserInfo(userInfo: UserInfo) = viewModelScope.launch(Dispatchers.IO) { dao.insertUserInfo(userInfo) }
+
     fun deleteUserInfo(Selectage :Int, Selectheight: Double, Selectweight :Double) = viewModelScope.launch(Dispatchers.IO) {dao.deleteUserInfo(Selectage, Selectheight, Selectweight)}
 }
