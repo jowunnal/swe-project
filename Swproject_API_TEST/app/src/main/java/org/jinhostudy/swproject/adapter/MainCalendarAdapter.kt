@@ -15,7 +15,7 @@ import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
 class MainCalendarAdapter : RecyclerView.Adapter<MainCalendarAdapter.ViewHolder>(),OnItemClickListener {
-    var list= ArrayList<HashMap<String, String>>()
+    var list= ArrayList<HashMap<String, String>>() //key 값이 날짜, value 값이 요일
     var mlistener:OnItemClickListener ?=null
     var list_Water=ArrayList<Boolean>()
     inner class ViewHolder(private val binding: ItemCalendar7daysBinding):RecyclerView.ViewHolder(binding.root) {
@@ -75,9 +75,16 @@ class MainCalendarAdapter : RecyclerView.Adapter<MainCalendarAdapter.ViewHolder>
         return list.size
     }
 
-    fun setItems(list: ArrayList<HashMap<String, String>>){
+    fun setItems(list: ArrayList<HashMap<String, String>>,waterInfo: ArrayList<Boolean>){
+        val dataList=ArrayList<HashMap<String,String>>()
+        val waterList=ArrayList<Boolean>()
+        dataList.addAll(list)
+        waterList.addAll(waterInfo)
+
         this.list.clear()
-        this.list.addAll(list)
+        list_Water.clear()
+        this.list.addAll(dataList)
+        list_Water.addAll(waterList)
     }
     fun getItem(pos:Int): String{
         var data=""
@@ -86,17 +93,7 @@ class MainCalendarAdapter : RecyclerView.Adapter<MainCalendarAdapter.ViewHolder>
         }
         return data
     }
-    fun setWaterInfo(waterInfo: List<WaterInfo>) {
-        list_Water.clear()
-        for(data in waterInfo){
-            val cal_water=data.user_today_mount-data.user_input_mount
-            if(cal_water>0)
-                this.list_Water.add(false)
-            else
-                this.list_Water.add(true)
-        }
 
-    }
     fun SetItemClickListener(listener: OnItemClickListener){
         this.mlistener=listener
     }
