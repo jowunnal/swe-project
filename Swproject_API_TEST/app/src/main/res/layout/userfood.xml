@@ -25,11 +25,12 @@
             android:textSize="20sp" />
 
         <Button
+            android:id="@+id/button_NavigateToApi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/button_NavigateToApi"
             android:layout_weight="3"
             android:background="@drawable/searchimg" />
+
     </LinearLayout>
 
     <androidx.viewpager2.widget.ViewPager2
