@@ -6,6 +6,7 @@
         <entry key="..\:/Users/HDY-PC/Desktop/Swproject_API_TEST/app/src/main/res/layout/activity_main.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/HDY-PC/Desktop/Swproject_API_TEST/app/src/main/res/layout/item_layout.xml" value="0.33" />
         <entry key="..\:/Users/HDY-PC/Desktop/Swproject_API_TEST/app/src/main/res/xml/network_security_config.xml" value="0.2046875" />
+        <entry key="..\:/Users/h/Desktop/huzi/swe-project/Swproject_API_TEST/app/src/main/res/layout/water_fragment.xml" value="0.25" />
         <entry key="..\:/Users/whang/Desktop/opqr/swe-project/Swproject_API_TEST/app/src/main/res/layout/initialuserinput.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/whang/Desktop/opqr/swe-project/Swproject_API_TEST/app/src/main/res/layout/item_calendar.xml" value="0.14130434782608695" />
         <entry key="..\:/Users/whang/Desktop/opqr/swe-project/Swproject_API_TEST/app/src/main/res/layout/item_calendar_7days.xml" value="0.14130434782608695" />
@@ -27,7 +28,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
