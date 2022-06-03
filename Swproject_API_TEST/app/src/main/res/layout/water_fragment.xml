@@ -7,7 +7,7 @@
     tools:context=".fragment.WaterFragment">
 
     <Switch
-        android:id="@+id/switch1"
+        android:id="@+id/switch_drinkAndGoal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -46,7 +46,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginBottom="4dp"
         android:text="/"
-        app:layout_constraintBottom_toTopOf="@+id/buttonWater_add"
+        app:layout_constraintBottom_toTopOf="@+id/button_plusDrink"
         app:layout_constraintEnd_toStartOf="@+id/tvWater_Goal"
         app:layout_constraintStart_toEndOf="@+id/tvWater_present"
         app:layout_constraintTop_toBottomOf="@+id/progressBar_WaterToday"
@@ -76,7 +76,7 @@
         android:layout_marginEnd="1dp"
         android:layout_marginBottom="4dp"
         android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/buttonWater_add"
+        app:layout_constraintBottom_toTopOf="@+id/button_plusDrink"
         app:layout_constraintEnd_toStartOf="@+id/textView35"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/progressBar_WaterToday"
@@ -91,29 +91,29 @@
         android:layout_marginEnd="287dp"
         android:layout_marginBottom="4dp"
         android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/buttonWater_add"
+        app:layout_constraintBottom_toTopOf="@+id/button_plusDrink"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView35"
         app:layout_constraintTop_toBottomOf="@+id/progressBar_WaterToday"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/buttonWater_dec"
+        android:id="@+id/button_minusDrink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="150dp"
         android:text="100ML감소"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/buttonWater_add"
+        app:layout_constraintStart_toEndOf="@+id/button_plusDrink"
         app:layout_constraintTop_toBottomOf="@+id/progressBar_WaterToday" />
 
     <Button
-        android:id="@+id/buttonWater_add"
+        android:id="@+id/button_plusDrink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="150dp"
         android:text="100ML추가"
-        app:layout_constraintEnd_toStartOf="@+id/buttonWater_dec"
+        app:layout_constraintEnd_toStartOf="@+id/button_minusDrink"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/progressBar_WaterToday" />
 
@@ -127,7 +127,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/numberPickerAlarm_Units"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonWater_add" />
+        app:layout_constraintTop_toBottomOf="@+id/button_plusDrink" />
 
     <NumberPicker
         android:id="@+id/numberPickerAlarm_Units"
@@ -138,7 +138,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/buttonWater_AlarmAdd"
         app:layout_constraintStart_toEndOf="@+id/numberPickerAlarm_Tens"
-        app:layout_constraintTop_toBottomOf="@+id/buttonWater_add" />
+        app:layout_constraintTop_toBottomOf="@+id/button_plusDrink" />
 
     <Button
         android:id="@+id/buttonWater_AlarmAdd"
@@ -152,7 +152,7 @@
         app:layout_constraintBottom_toTopOf="@+id/buttonWater_AlarmDelete"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/numberPickerAlarm_Units"
-        app:layout_constraintTop_toBottomOf="@+id/buttonWater_dec" />
+        app:layout_constraintTop_toBottomOf="@+id/button_minusDrink" />
 
     <Button
         android:id="@+id/buttonWater_AlarmDelete"

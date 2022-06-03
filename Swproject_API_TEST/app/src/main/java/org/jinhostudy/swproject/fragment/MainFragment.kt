@@ -1,7 +1,9 @@
 package org.jinhostudy.swproject.fragment
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,15 +20,13 @@ import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.utils.ColorTemplate
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import org.jinhostudy.swproject.R
 import org.jinhostudy.swproject.adapter.MainCalendarAdapter
 import org.jinhostudy.swproject.databinding.MainFragmentBinding
 import org.jinhostudy.swproject.listener.OnItemClickListener
-import org.jinhostudy.swproject.viewmodel.CalendarViewModel
-import org.jinhostudy.swproject.viewmodel.CalendarViewModelFactory
-import org.jinhostudy.swproject.viewmodel.WaterViewModel
-import org.jinhostudy.swproject.viewmodel.WaterViewModelFactory
+import org.jinhostudy.swproject.viewmodel.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -47,6 +47,7 @@ class MainFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController= Navigation.findNavController(view)
@@ -54,6 +55,16 @@ class MainFragment : Fragment() {
         adapter= MainCalendarAdapter()
         binding.recyclerViewMainCalendar.adapter=adapter
         binding.recyclerViewMainCalendar.layoutManager=GridLayoutManager(activity,7)
+        val day=calendarViewModel.getToday(Calendar.getInstance())
+        val dateList=ArrayList<String>()
+        for(data in day){
+          dateList.add(data.keys.first().split('-')[2])
+        }
+
+        CoroutineScope(Dispatchers.IO).launch{
+            adapter.setItems(day,calendarViewModel.indicateToCalendar(day.first().keys.first(),day.last().keys.first(),dateList))
+        }
+        adapter.notifyDataSetChanged()
         /*var k=1 //데이터 생성하는 코드 1980년~2050년
         var waterList=ArrayList<WaterInfo>()
         for(i in -500..500){
@@ -64,7 +75,13 @@ class MainFragment : Fragment() {
                 waterList.add(waterInfo)
             }
         }*/
+        val userViewModel=UserViewModel(requireActivity().application)
 
+        userViewModel.showUserInfo().observe(viewLifecycleOwner, Observer {
+            if(it.isNullOrEmpty()){
+                navController.navigate(R.id.action_mainFragment_to_initialUserInputFragment2)
+            }
+        })
 
 
         calendarViewModel.day.observe(viewLifecycleOwner, Observer { s ->
@@ -72,9 +89,17 @@ class MainFragment : Fragment() {
             val cal=Calendar.getInstance()
             cal.set(date[0].toInt(),date[1].toInt()-1,date[2].toInt())
             val day=calendarViewModel.getToday(cal)
-            CoroutineScope(Dispatchers.IO).launch{adapter.setWaterInfo(calendarViewModel.indicateToCalendar(day.first().keys.first(),day.last().keys.first()))}
-            adapter.setItems(day)
-            adapter.notifyDataSetChanged()
+            val dateList=ArrayList<String>()
+            for(data in day){
+                dateList.add(data.keys.first().split('-')[2])
+            }
+            CoroutineScope(Dispatchers.Main).launch{
+                val data=async(Dispatchers.IO){
+                    calendarViewModel.indicateToCalendar(day.first().keys.first(),day.last().keys.first(),dateList)
+                }
+                adapter.setItems(day,data.await())
+                adapter.notifyDataSetChanged()
+            }
         })
 
         adapter.SetItemClickListener(object : OnItemClickListener{
@@ -95,9 +120,12 @@ class MainFragment : Fragment() {
         calendarViewModel.day.observe(viewLifecycleOwner, Observer { s ->
             waterViewModel.getDrinkGoal(s).observe(viewLifecycleOwner, Observer {
                 binding.progressBarWater.max=it
+                //Log.d("test","goalObserve: "+it.toString())
             })
+           // Log.d("test","dayObserve: "+s.toString())
             waterViewModel.getDrink(s).observe(viewLifecycleOwner, Observer {
                 binding.progressBarWater.progress=it
+               // Log.d("test","drinkObserve: "+it.toString())
             })
         })
 

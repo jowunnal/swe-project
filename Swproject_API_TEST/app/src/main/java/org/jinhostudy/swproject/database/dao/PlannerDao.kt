@@ -31,7 +31,7 @@ interface PlannerDao {
     fun getDrinkGoal(day:String):LiveData<Int>
 
     @Query("select * from waterinfo where water_date between :day1 and :day2")
-    fun getDrinkAmongDays(day1:String,day2:String):List<WaterInfo>
+    fun getDrinkAmongDays(day1:String,day2:String):MutableList<WaterInfo>
 
     @Query("select * from UserInfo")
     fun getUserInfo():LiveData<List<UserInfo>>
@@ -42,6 +42,8 @@ interface PlannerDao {
     @Query("delete from UserInfo where user_age = :Selectage and user_height = :Selectheight and user_weight = :Selectweight")
     fun deleteUserInfo(Selectage :Int, Selectheight :Double, Selectweight :Double)
 
+    @Query("insert into UserInfo(user_age,user_height,user_weight,user_date) values (:age,:height,:weight,:date) ")
+    suspend fun inputFirstUserData(age:Int,height:Int,weight:Int,date:String)
 
     //@Insert(onConflict = OnConflictStrategy.IGNORE)
     //suspend fun setWater(waterInfo: ArrayList<WaterInfo>)

@@ -39,28 +39,28 @@ class WaterFragment : Fragment() {
         })
 
         binding.tvWaterHeader.text="오늘 물 섭취량"
-        binding.buttonWaterAdd.setOnClickListener { //물 섭취량 혹은 목표량 증가버튼
+        binding.buttonPlusDrink.setOnClickListener { //물 섭취량 혹은 목표량 증가버튼
             calendarViewModel.day.observe(viewLifecycleOwner, Observer {
                 waterViewModel.plusDrink(it)
             })
         }
-        binding.buttonWaterDec.setOnClickListener { // 물 섭취량 혹은 목표량 감소버튼
+        binding.buttonMinusDrink.setOnClickListener { // 물 섭취량 혹은 목표량 감소버튼
             calendarViewModel.day.observe(viewLifecycleOwner, Observer {
                 waterViewModel.minusDrink(it)
             })
         }
 
 
-        binding.switch1.setOnCheckedChangeListener { _, p1 -> // 물섭취량 혹은 물목표량 으로 스위치를 통해 변경
+        binding.switchDrinkAndGoal.setOnCheckedChangeListener { _, p1 -> // 물섭취량 혹은 물목표량 으로 스위치를 통해 변경
             when (p1) {
                 true -> {
                     binding.tvWaterHeader.text="오늘 물 목표량"
-                    binding.buttonWaterAdd.setOnClickListener {
+                    binding.buttonPlusDrink.setOnClickListener {
                         calendarViewModel.day.observe(viewLifecycleOwner, Observer {
                             waterViewModel.plusDrinkGoal(it)
                         })
                     }
-                    binding.buttonWaterDec.setOnClickListener {
+                    binding.buttonMinusDrink.setOnClickListener {
                         calendarViewModel.day.observe(viewLifecycleOwner, Observer {
                             waterViewModel.minusDrinkGoal(it)
                         })
@@ -68,12 +68,12 @@ class WaterFragment : Fragment() {
                 }
                 false->{
                     binding.tvWaterHeader.text="오늘 물 섭취량"
-                    binding.buttonWaterAdd.setOnClickListener {
+                    binding.buttonPlusDrink.setOnClickListener {
                         calendarViewModel.day.observe(viewLifecycleOwner, Observer {
                             waterViewModel.plusDrink(it)
                         })
                     }
-                    binding.buttonWaterDec.setOnClickListener {
+                    binding.buttonMinusDrink.setOnClickListener {
                         calendarViewModel.day.observe(viewLifecycleOwner, Observer {
                             waterViewModel.minusDrink(it)
                         })
@@ -81,19 +81,19 @@ class WaterFragment : Fragment() {
                 }
             }
         }
-        val alarmViewModel=AlarmViewModel(requireActivity().application)
-        binding.numberPickerAlarmTens.maxValue=9
+        val alarmViewModel=WaterAlarm(requireActivity().application) //알람컨트롤 클래스 객체생성
+        binding.numberPickerAlarmTens.maxValue=9 //알람의 숫자를 표시할 각각의 NumberPicker의 최대값,최소값,그리고 default값을 설정
         binding.numberPickerAlarmTens.minValue=0
         binding.numberPickerAlarmTens.value=0
         binding.numberPickerAlarmUnits.maxValue=9
         binding.numberPickerAlarmUnits.minValue=0
         binding.numberPickerAlarmUnits.value=0
-        binding.buttonWaterAlarmAdd.setOnClickListener { //알람설정버튼
+        binding.buttonWaterAlarmAdd.setOnClickListener { //알람설정버튼 위의 각각의NumberPicker값을 십의자리,일의자리로받아 숫자로설정
             val min=binding.numberPickerAlarmTens.value.toString()+binding.numberPickerAlarmUnits.value.toString()
             alarmViewModel.setAlarm(min.toInt())
         }
         binding.buttonWaterAlarmDelete.setOnClickListener {
-            alarmViewModel.clearAlarm()
+            alarmViewModel.clearAlarm() //알람을 제거하는 버튼
         }
     }
 }

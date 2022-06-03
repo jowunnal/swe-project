@@ -24,16 +24,18 @@ class CalendarAdapter : RecyclerView.Adapter<CalendarAdapter.ViewHolder>(),OnIte
             }
 
             if(list_Water.isNotEmpty()){
+                //Log.d("test",list_Water.size.toString())
                 if(!list_Water[pos]){
                     itemCalendarBinding.calendarMonthsWater.setBackgroundColor(Color.BLUE)
                 }
                 else
                     itemCalendarBinding.calendarMonthsWater.setBackgroundColor(Color.WHITE)
             }
-            itemCalendarBinding.root.setOnClickListener {
-                SetOnItemClickListener(it,adapterPosition)
+            if(data!="0"){
+                itemCalendarBinding.root.setOnClickListener {
+                    SetOnItemClickListener(it,adapterPosition)
+                }
             }
-
         }
 
     }
@@ -50,28 +52,19 @@ class CalendarAdapter : RecyclerView.Adapter<CalendarAdapter.ViewHolder>(),OnIte
         return list.size
     }
 
-    fun setItems(list:List<String>){
+    fun setItems(list:List<String>,waterInfo: ArrayList<Boolean>){
+        val dataList=ArrayList<String>()
+        val waterList=ArrayList<Boolean>()
+
+        dataList.addAll(list)
+        waterList.addAll(waterInfo)
         this.list.clear()
-        this.list.addAll(list)
+        list_Water.clear()
+        this.list.addAll(dataList)
+        list_Water.addAll(waterList)
     }
     fun getItem(pos:Int):String{
         return list[pos]
-    }
-    fun setWaterInfo(waterInfo: List<WaterInfo>) {
-        list_Water.clear()
-        for(data in list){
-            if(data=="0")
-                list_Water.add(true)
-        }
-        for(data in waterInfo){
-            val cal_water=data.user_today_mount-data.user_input_mount
-            if(cal_water>0)
-                this.list_Water.add(false)
-            else
-                this.list_Water.add(true)
-        }
-
-
     }
 
     override fun SetOnItemClickListener(v: View, pos: Int) {
