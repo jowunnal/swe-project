@@ -1,14 +1,12 @@
 package org.jinhostudy.swproject.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import org.jinhostudy.swproject.database.PlannerDatabase
 import org.jinhostudy.swproject.database.entity.WaterInfo
 import java.text.SimpleDateFormat
@@ -22,9 +20,25 @@ class CalendarViewModel(application: Application):ViewModel() {
     fun changeDays(day:String){
         this.day.value=day
     }
-    fun indicateToCalendar(day1:String,day2:String)=dao.getDrinkAmongDays(day1, day2)
-    //fun setCalendar(input:Int,today:Int,recom:Int,date:String)=viewModelScope.async(Dispatchers.IO) { dao.setWater(input,today,recom,date) }
-    //input:Int,today:Int,recom:Int,date:String
+    // 달력화면에 해당기간동안의 물정보의 목표량-섭취량 을계산하여 0보다 큰지 작은지 계산하여 계산된 리스트값들(날짜에대한 boolean)을 반환
+    suspend fun indicateToCalendar(day1:String, day2:String, list:ArrayList<String>):ArrayList<Boolean>{
+        val waterInfo:MutableList<WaterInfo> =withContext(Dispatchers.IO){dao.getDrinkAmongDays(day1, day2) }
+
+        val list_Water=ArrayList<Boolean>()
+        for(data in list){
+            if(data=="0")
+                list_Water.add(true)
+        }
+        //해당기간동안의 물정보를 년-월-일 순으로 정렬
+        waterInfo.sortWith(compareBy<WaterInfo> { it.water_date.split("-")[0] }.thenBy { it.water_date.split("-")[1] }.thenBy { it.water_date.split("-")[2] })
+        for(data in waterInfo){
+            if((data.user_today_mount-data.user_input_mount)>0)
+                list_Water.add(false)
+            else
+                list_Water.add(true)
+        }
+        return list_Water
+    }
 
     lateinit var times:Date
     fun makeday(cal: GregorianCalendar, i:Int) : ArrayList<String> { // 한달달력의 값들을 가져오는 메소드
