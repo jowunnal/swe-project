@@ -11,10 +11,10 @@ import org.jinhostudy.swproject.databinding.WaterFragmentBinding
 import org.jinhostudy.swproject.viewmodel.*
 
 class WaterFragment : Fragment() {
-    var _binding:WaterFragmentBinding ?= null
+    private var _binding:WaterFragmentBinding ?= null
     val binding get() = _binding!!
-    val waterViewModel:WaterViewModel by activityViewModels{WaterViewModelFactory(requireActivity().application)}
-    val calendarViewModel:CalendarViewModel by activityViewModels{ CalendarViewModelFactory(requireActivity().application) }
+    private val waterViewModel:WaterViewModel by activityViewModels{WaterViewModelFactory(requireActivity().application)}
+    private val calendarViewModel:CalendarViewModel by activityViewModels{ CalendarViewModelFactory(requireActivity().application) }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

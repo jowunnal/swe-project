@@ -11,6 +11,30 @@ import org.jinhostudy.swproject.database.entity.WaterInfo
 
 @Dao
 interface PlannerDao {
+    @Query("select * from FoodInfo where food_date = :day")
+    fun getFoodAll(day: String) :LiveData<List<FoodInfo>>
+
+    @Query("select * from FoodInfo where food_date = :day")
+    suspend fun getFood(day: String) :List<FoodInfo>
+
+    @Query("select food_name from FoodInfo where food_date = :day")
+    fun getFoodName(day: String) :LiveData<List<String>>
+
+    @Query("select food_kcal from FoodInfo where food_date = :day")
+    fun getFoodKcal(day: String) :LiveData<Int>
+
+    @Query("select food_distinguish from FoodInfo where food_date=:day")
+    fun getFoodDistinguish(day: String):LiveData<String>
+
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertFoodInfo(foodInfo: FoodInfo)
+
+    @Query("select * from FoodInfo where food_date=:date and food_distinguish=:distinguish")
+    fun getFoodInfo(date:String,distinguish:String):LiveData<List<FoodInfo>>
+
+    @Query("delete from foodinfo where food_name=:foodName and food_distinguish =:foodDistinguish and food_date=:date")
+    suspend fun modifyFoodInfo(foodName:String,foodDistinguish:String,date:String)
 
     @Query("update waterinfo set user_input_mount=(select user_input_mount from WaterInfo where water_date like :day)+100 where water_date like :day")
     suspend fun plusDrink(day:String)
