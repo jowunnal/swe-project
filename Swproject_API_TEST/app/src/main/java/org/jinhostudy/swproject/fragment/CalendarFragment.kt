@@ -20,11 +20,11 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class CalendarFragment :Fragment(){
-    var _binding : CalendarBinding ?= null
+    private var _binding : CalendarBinding ?= null
     val binding get() = _binding !!
-    lateinit var adapter: CalendarAdapter
+    val adapter: CalendarAdapter by lazy{ CalendarAdapter() }
     val calendarViewModel:CalendarViewModel by activityViewModels{CalendarViewModelFactory(requireActivity().application)}
-    var numb_flag=0
+    private var numb_flag=0
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -37,13 +37,11 @@ class CalendarFragment :Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter= CalendarAdapter()
-        binding.recyclerView2.adapter=adapter
-        binding.recyclerView2.layoutManager=GridLayoutManager(activity,7)
-        val cal=GregorianCalendar()
+        binding.recyclerViewCalendar.adapter=adapter //리사이클러뷰 어답터와 레이아웃매니저 할당
+        binding.recyclerViewCalendar.layoutManager=GridLayoutManager(activity,7)
+        val cal=GregorianCalendar() // 캘린더객체생성성
 
-        calculateMonths(cal,0) //달력화면을 보여주는 메소드  아래에서도 중복으로 사용하기때문에 묘둘화
-
+       calculateMonths(cal,0) //달력화면을 보여주는 메소드  아래에서도 중복으로 사용하기때문에 묘둘화
 
         binding.calendarMonthsLeft.setOnClickListener { // 해당달에서 이전달로 이동
             numb_flag-=1

@@ -14,7 +14,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class InitialUserInputFragment :Fragment() {
-    var _binding : InitialuserinputBinding?=null
+    private var _binding : InitialuserinputBinding?=null
     val binding get() = _binding!!
     lateinit var initalUserViewModel: InitalUserViewModel
     override fun onCreateView(

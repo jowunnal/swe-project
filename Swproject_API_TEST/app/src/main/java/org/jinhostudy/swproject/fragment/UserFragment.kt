@@ -15,7 +15,7 @@ import org.jinhostudy.swproject.listener.OnItemClickListener
 import org.jinhostudy.swproject.viewmodel.UserViewModel
 
 class UserFragment:Fragment() {
-    var _binding: UserInfoBinding ?= null
+    private var _binding: UserInfoBinding ?= null
     val binding get() = _binding !!
     lateinit var userViewModel: UserViewModel
     lateinit var userAdapter: UserAdapter

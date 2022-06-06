@@ -41,13 +41,11 @@ class UserAdapter: RecyclerView.Adapter<UserAdapter.ViewHolder>(),OnItemClickLis
         return list.size
     }
 
-    fun setItems(item:List<UserInfo>){
-        list.clear()
-        list.addAll(item)
+    fun setItems(list:List<UserInfo>){
+        this.list.clear()
+        this.list.addAll(list)
     }
-    fun setPresentItems(userInfo: UserInfo){
 
-    }
     fun getItem(pos: Int): UserInfo {
         return list[pos]
     }
