@@ -15,16 +15,11 @@ import org.jinhostudy.swproject.database.entity.FoodInfo
 import retrofit2.Response
 
 class ApiViewModel(application: Application) : AndroidViewModel(application) {
-
-    private var foodDistinguish = MutableLiveData("아침")
+    var foodDistinguish = "아침"
     var foodName=""
-    val livedata get()=foodDistinguish
     var foodInfo=FoodInfo(1,"",0,0,0,0,0,0,0,"","")
 
     //spinner 선택시 아침,점심,저녁 구별
-    fun modifyDistinguish(data:String){foodDistinguish.value=data}
-    fun loadFood(foodName:String){this.foodName=foodName}
-
     fun saveFoodInfo(foodInfo: FoodInfo){
         this.foodInfo=foodInfo
     }
@@ -32,11 +27,11 @@ class ApiViewModel(application: Application) : AndroidViewModel(application) {
         return foodInfo
     }
 
-    suspend fun requestAPI(service: IRetrofit, text:String): Response<FoodDTO> {
+    suspend fun requestAPI(service: IRetrofit): Response<FoodDTO> {
         val response = viewModelScope.async {
             service.getData(
                 "glwquL+djUJqzmtsCEnu1fnleZGUti9NAlVWTpONdIBdupJ054tojg6azBWVmp8KOiGZHUwlRSv3Af5hCKVudw==",
-                text, "json"
+                foodName, "json"
             ) // 키값넣어서 api 요청해서 응답받아 변수에할당하고
         }
         return response.await()

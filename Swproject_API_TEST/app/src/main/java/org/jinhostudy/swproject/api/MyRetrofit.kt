@@ -1,5 +1,6 @@
 package org.jinhostudy.swproject.api
 
+import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -18,7 +19,7 @@ object MyRetrofit {
 
     private val retrofit: Retrofit by lazy { // retrofit 객체 빌더로 생성
         Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
             .client(okHttpClient)
             .baseUrl(BASE_URL)
             .build()

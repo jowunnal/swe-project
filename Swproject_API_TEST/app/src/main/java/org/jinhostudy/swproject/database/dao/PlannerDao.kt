@@ -11,52 +11,21 @@ import org.jinhostudy.swproject.database.entity.WaterInfo
 
 @Dao
 interface PlannerDao {
-    @Query("select * from FoodInfo where food_date = :day")
-    fun getFoodAll(day: String) :LiveData<List<FoodInfo>>
-
-    @Query("select * from FoodInfo where food_date = :day")
-    suspend fun getFood(day: String) :List<FoodInfo>
-
-    @Query("select food_name from FoodInfo where food_date = :day")
-    fun getFoodName(day: String) :LiveData<List<String>>
-
-    @Query("select food_kcal from FoodInfo where food_date = :day")
-    fun getFoodKcal(day: String) :LiveData<Int>
-
-    @Query("select food_distinguish from FoodInfo where food_date=:day")
-    fun getFoodDistinguish(day: String):LiveData<String>
-
-
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertFoodInfo(foodInfo: FoodInfo)
-
-    @Query("select * from FoodInfo where food_date=:date and food_distinguish=:distinguish")
-    fun getFoodInfo(date:String,distinguish:String):LiveData<List<FoodInfo>>
-
-    @Query("delete from foodinfo where food_name=:foodName and food_distinguish =:foodDistinguish and food_date=:date")
-    suspend fun modifyFoodInfo(foodName:String,foodDistinguish:String,date:String)
 
     @Query("update waterinfo set user_input_mount=(select user_input_mount from WaterInfo where water_date like :day)+100 where water_date like :day")
     suspend fun plusDrink(day:String)
-
     @Query("update waterinfo set user_input_mount=(select user_input_mount from WaterInfo where water_date like :day)-100 where water_date like :day")
     suspend fun minusDrink(day:String)
-
     @Query("update waterinfo set user_today_mount=(select user_today_mount from WaterInfo where water_date like :day)+100 where water_date like :day")
     suspend fun plusDrinkGoal(day:String)
-
     @Query("update waterinfo set user_today_mount=(select user_today_mount from WaterInfo where water_date like :day)-100 where water_date like :day")
     suspend fun minusDrinkGoal(day:String)
-
     @Query("select user_input_mount from waterinfo where water_date like :day")
     fun getDrink(day:String): LiveData<Int>
-
     @Query("select user_today_mount from waterinfo where water_date like :day")
     fun getDrinkGoal(day:String):LiveData<Int>
-
     @Query("select * from waterinfo where water_date between :day1 and :day2")
     fun getDrinkAmongDays(day1:String,day2:String):MutableList<WaterInfo>
-
     @Query("select * from UserInfo")
     fun showUserInfo():LiveData<List<UserInfo>>
 
@@ -69,10 +38,25 @@ interface PlannerDao {
     @Query("insert into UserInfo(user_age,user_height,user_weight,user_date) values (:age,:height,:weight,:date) ")
     suspend fun inputFirstUserData(age:Int,height:Int,weight:Int,date:String)
 
+    @Query("select * from FoodInfo where food_date = :day")
+    fun getFoodAll(day: String) :LiveData<List<FoodInfo>>
+
+    @Query("select * from FoodInfo where food_date = :day")
+    suspend fun getFood(day: String) :List<FoodInfo>
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertFoodInfo(foodInfo: FoodInfo)
+
+    @Query("select * from FoodInfo where food_date=:date and food_distinguish=:distinguish")
+    fun getFoodInfo(date:String,distinguish:String):List<FoodInfo>
+
+    @Query("delete from foodinfo where food_name=:foodName and food_distinguish =:foodDistinguish and food_date=:date")
+    suspend fun deleteFoodInfo(foodName:String,foodDistinguish:String,date:String)
+
     //@Insert(onConflict = OnConflictStrategy.IGNORE)
     //suspend fun setWater(waterInfo: ArrayList<WaterInfo>)
-    @Query("insert into waterinfo(user_input_mount,user_today_mount,user_recom_mount,water_date) values (:input,:today,:recom,:date)")
-    suspend fun setWater(input:Int,today:Int,recom:Int,date:String)
+    //@Query("insert into waterinfo(user_input_mount,user_today_mount,user_recom_mount,water_date) values (:input,:today,:recom,:date)")
+    //suspend fun setWater(input:Int,today:Int,recom:Int,date:String)
 
     //update WaterInfo set water_date=((SELECT datetime('now','localtime'))) where water_id=1 or water_id=2
     //update waterinfo set water_date=(select date('now')) where water_id=1
