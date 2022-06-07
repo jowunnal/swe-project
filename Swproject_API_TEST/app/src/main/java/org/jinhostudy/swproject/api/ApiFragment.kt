@@ -11,6 +11,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import kotlinx.coroutines.*
 import org.jinhostudy.swproject.adapter.ApiAdapter
 import org.jinhostudy.swproject.database.entity.FoodInfo
@@ -20,7 +22,6 @@ import org.jinhostudy.swproject.viewmodel.*
 
 
 class ApiFragment : Fragment() {
-    val foodManageViewModel: FoodManageViewModel by lazy { FoodManageViewModel(requireActivity().application) }
     val calendarViewModel: CalendarViewModel by activityViewModels{ CalendarViewModelFactory(requireActivity().application) }
     val apiViewModel:ApiViewModel by activityViewModels{ApiViewModelFactory(requireActivity().application)}
     var _binding: ApiTestBinding? = null
@@ -40,15 +41,14 @@ class ApiFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.recyclerView.apply {
+        binding.recyclerViewFoodList.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             adapter = apiAdapter
         }
-        binding.editTextTextPersonName.text = apiViewModel.foodName
+        binding.textviewFoodName.text = apiViewModel.foodName
         val service = MyRetrofit.iRetrofit
-        val text =apiViewModel.foodName
         CoroutineScope(Dispatchers.Main).launch {
-            val response=apiViewModel.requestAPI(service, text)
+            val response=apiViewModel.requestAPI(service)
             if (response.isSuccessful) { // 응답이 성공적으로 받아졋으면
                 val result = response.body()?.body?.items // items참조해서
                 result?.let {
@@ -84,7 +84,7 @@ class ApiFragment : Fragment() {
                     food_kcal,
                     food_carbo,
                     food_protein,
-                    food_fat,food_sweet,food_sodium,apiViewModel.livedata.value!!,food_date))
+                    food_fat,food_sweet,food_sodium,apiViewModel.foodDistinguish,food_date))
 
                 findNavController().popBackStack()
             }

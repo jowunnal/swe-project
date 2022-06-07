@@ -7,7 +7,7 @@
     tools:context=".api.ApiFragment">
 
     <TextView
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/textview_FoodName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -18,13 +18,13 @@
         android:gravity="center"
         android:inputType="textPersonName"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView_FoodList"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/recyclerView_FoodList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:scrollbars="vertical"
@@ -32,6 +32,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+        app:layout_constraintTop_toBottomOf="@+id/textview_FoodName" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

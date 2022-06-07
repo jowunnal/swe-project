@@ -4,6 +4,7 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.jinhostudy.swproject.database.PlannerDatabase
@@ -14,13 +15,15 @@ class FoodManageViewModel(application: Application) : AndroidViewModel(applicati
     private var db = PlannerDatabase.getInstance(application)
     private var plannerDao = db.plannerDao()
 
-
     fun getFoodAll(day : String) = plannerDao.getFoodAll(day)
     fun inputFoodInfo(foodInfo: FoodInfo) = viewModelScope.launch(Dispatchers.IO) { plannerDao.insertFoodInfo(foodInfo) }
-    fun getFoodDistinguish(date:String,distinguish:String)=plannerDao.getFoodInfo(date,distinguish)
-    fun modifyFoodInfo(foodName:String,
+    suspend fun getFoodInfo(date:String, distinguish:String):List<FoodInfo>{
+        val foodList=viewModelScope.async(Dispatchers.IO) {  plannerDao.getFoodInfo(date,distinguish)}
+        return foodList.await()
+    }
+    fun deleteFoodInfo(foodName:String,
                        foodDistinguish:String,
-                       date:String, ) = viewModelScope.launch(Dispatchers.IO) { plannerDao.modifyFoodInfo(
+                       date:String, ) = viewModelScope.launch(Dispatchers.IO) { plannerDao.deleteFoodInfo(
                                                                 foodName,
                                                                 foodDistinguish,
                                                                 date) }

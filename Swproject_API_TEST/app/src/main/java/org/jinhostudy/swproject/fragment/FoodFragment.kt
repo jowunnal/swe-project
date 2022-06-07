@@ -65,9 +65,7 @@ class FoodFragment : Fragment() {
         val items = arrayOf("아침", "점심", "저녁")
         val myAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, items)
 
-
         binding.bldSpinner.adapter = myAdapter
-
         //어압터 인스턴스 생성
         foodAdapter=FoodAdapter()
         foodAdapter.setItems(foodList)
@@ -80,27 +78,18 @@ class FoodFragment : Fragment() {
         if(apiViewModel.loadFoodInfo().food_id==0) // api응답받은 음식정보가 잇다면
             foodManageViewModel.inputFoodInfo(apiViewModel.loadFoodInfo()) //데이터베이스에 삽입
 
-        binding.searchFoodAppCompatButton.setOnClickListener {//검색버튼 클릭시
+        binding.buttonNavigateToApi.setOnClickListener {//검색버튼 클릭시
             when {
                 binding.foodSearchEditText.text.isNotEmpty() && Pattern.matches("^[0-9a-zA-Z]*$",binding.foodSearchEditText.text) -> {
                     Toast.makeText(requireActivity(),"한글만 사용가능 합니다.",Toast.LENGTH_LONG).show()
                 }
                 binding.foodSearchEditText.text.isNotEmpty() && Pattern.matches("^[ㄱ-힣]*$",binding.foodSearchEditText.text)-> { //입력된 음식이름이 있다면
-                    apiViewModel.loadFood(binding.foodSearchEditText.text.toString()) //해당음식이름을 컨트롤클래스에 가져가고
+                    apiViewModel.foodName=binding.foodSearchEditText.text.toString() //해당음식이름을 컨트롤클래스에 가져가고
                     findNavController().navigate(R.id.action_userFoodFragment_to_apiTest) //화면전환
                 }
                 else -> Toast.makeText(requireActivity(),"음식명을 먼저 입력해주세요!",Toast.LENGTH_SHORT).show()
             }
         }
-
-        // 식단구분(livedata) 에 따라 해당식단구분과 날짜에 따른 음식정보를 가져옴
-        apiViewModel.livedata.observe(viewLifecycleOwner, Observer { s ->
-            foodManageViewModel.getFoodDistinguish(calendarViewModel.getDays(),s).observe(viewLifecycleOwner,
-                Observer {
-                    foodAdapter.setItems(it)
-                    foodAdapter.notifyDataSetChanged()
-                })
-        })
 
         //데이터 변동시 칼로리 와 영양성분 계산
         foodManageViewModel.getFoodAll(calendarViewModel.getDays()).observe(viewLifecycleOwner, Observer {
@@ -115,6 +104,9 @@ class FoodFragment : Fragment() {
                     fat=c_nut.await().food_fat
                     binding.calorieTextView.text = kcal.toString()
                     showPieChart(kcal,carbo,sweet,protein,fat)
+
+                    foodAdapter.setItems(foodManageViewModel.getFoodInfo(calendarViewModel.getDays(),apiViewModel.foodDistinguish))
+                    foodAdapter.notifyDataSetChanged()
                 }
             }
 
@@ -123,11 +115,12 @@ class FoodFragment : Fragment() {
         foodAdapter.setItemClickListener(object :OnItemClickListener{ //선택된항목을 가져오는 리사이클러뷰 클릭리스너 구현체
             override fun SetOnItemClickListener(v: View, pos: Int) {
                 selectedFoodInfo=foodAdapter.getItem(pos)
+
+                binding.buttonFoodDelete.setOnClickListener { //삭제버튼
+                    foodManageViewModel.deleteFoodInfo(selectedFoodInfo.food_name,apiViewModel.foodDistinguish,calendarViewModel.getDays())
+                }
             }
         })
-        binding.buttonFoodDelete.setOnClickListener { //삭제버튼
-            foodManageViewModel.modifyFoodInfo(selectedFoodInfo.food_name,apiViewModel.livedata.value!!,calendarViewModel.getDays())
-        }
 
         //스피너의 선택에 따라 아침, 점심, 저녁 에따른 식단구분값을 변경경
        binding.bldSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -137,7 +130,11 @@ class FoodFragment : Fragment() {
                     position: Int,
                     id: Long
                 ) {
-                    apiViewModel.modifyDistinguish(items[position])
+                    CoroutineScope(Dispatchers.Main).launch{
+                        foodAdapter.setItems(foodManageViewModel.getFoodInfo(calendarViewModel.getDays(),items[position]))
+                        foodAdapter.notifyDataSetChanged()
+                    }
+                    apiViewModel.foodDistinguish=items[position]
                 }
                 override fun onNothingSelected(parent: AdapterView<*>?) {
                     Toast.makeText(requireContext(), "아침,점심,저녁 중 하나를 선택해 주세요.",Toast.LENGTH_SHORT).show()
